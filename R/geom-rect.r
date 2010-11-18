@@ -7,9 +7,7 @@
 #' )
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #'   geom_rect()
-geom_rect <- function(...) {
-  new_layer(..., geom = geom_from_layer("rect"))
-}
+
 
 aes_required.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
 aes_present.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
