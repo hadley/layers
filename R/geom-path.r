@@ -101,7 +101,7 @@ geom_grob.path <- function(geom, data, ...) {
     with(data, 
       polylineGrob(
         x, y, id = as.integer(factor(group)), 
-        default.units = "native", arrow = arrow, ...
+        default.units = "native", arrow = arrow, ...,
         gp = gpar(
           col = alpha(colour, alpha)[start], 
           lwd = size[start] * .pt, lty = linetype[start], 
@@ -115,7 +115,7 @@ geom_grob.path <- function(geom, data, ...) {
     with(data, 
       segmentsGrob(
         x[!end], y[!end], x[!start], y[!start],
-        default.units="native", arrow = arrow, ...
+        default.units="native", arrow = arrow, ...,
         gp = gpar(
           col = alpha(colour, alpha)[!end], 
           lwd = size[!end] * .pt, lty = linetype[!end], 
