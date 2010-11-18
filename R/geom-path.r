@@ -110,9 +110,7 @@ constant_aesthetics <- function(data) {
 
 aes_required.path <- function(geom) c("x", "y")
 aes_present.path <- function(geom) c()
-aes_default.path <- function(geom) {
-  list(colour = "black", size = 0.5, linetype = 1, alpha = 1)
-}
+aes_default.path <- function(geom) build_defaults(c("line"))
 
 
 geom_visualize.path <- function(geom, data = list()) {

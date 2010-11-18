@@ -10,9 +10,7 @@ geom_stat.bar <- function(geom, ...) stat_bin(...)
 geom_adjust.bar <- function(geom, ...) adjust_stack(...)
 
 aes_required.bar <- function(geom) c("x", "y")
-aes_default.bar <- function(geom) {
-  list(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = 1)
-}
+aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.bar <- function(geom, data) {
   data$width <- data$width %||% 

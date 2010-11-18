@@ -4,9 +4,7 @@ geom_point <- function(aesthetics = list(), na.rm = FALSE, ...) {
 
 aes_required.point <- function(geom) c("x", "y")
 aes_present.point <- function(geom) c("x", "y", "size", "shape")
-aes_default.point <- function(geom) {
-  list(shape = 16, colour = "black", size = 2, fill = NA, alpha = 1)
-}
+aes_default.point <- function(geom) build_defaults("point")
 
 geom_grob.point <- function(geom, data, ...) {
   data <- calc_aesthetics(geom, data)

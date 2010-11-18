@@ -11,9 +11,7 @@
 
 aes_required.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
 aes_present.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
-aes_default.rect <- function(geom) {
-  list(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = 1)
-}
+aes_default.rect <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.rect <- function(geom, data) {
   data <- calc_aesthetics(geom, data)
