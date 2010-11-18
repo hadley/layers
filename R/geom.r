@@ -23,16 +23,6 @@ geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
 geom_munch <- function(geom, data) UseMethod("geom_munch")
 geom_munch.default <- function(geom, data) list(geom = geom, data = data)
 
-#' Reparameterise the data.
-#'
-#' Converts widths and heights to x and y coordinates.  This is used to 
-#' ensure that all geoms, regardless of how they are specified, are converted
-#' to a common coordinate system that uses x, xmin, xmax, y, ymin and ymax.
-#'
-#' @return a data frame
-geom_reparam <- function(geom, data) UseMethod("geom_reparam")
-geom_reparam.default <- function(geom, data) data
-
 #' Default related stat and adjust.
 #'
 #' The defaults are the identity functions which leave the data unchanged.

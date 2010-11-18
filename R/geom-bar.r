@@ -3,19 +3,25 @@
 #' @seealso \code{\link{stat_bin}: for more details of the binning algorithm #' @seealso \code{\link{position_dodge}}: for side-by-side barcharts
 #' @seealso \code{\link{position_stack}}: for more info on stacking
 geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
-  geom_from_call(c("bar", "rect"))
+  geom_from_call("bar")
 }
 
 geom_stat.bar <- function(geom, ...) stat_bin(...)
 geom_adjust.bar <- function(geom, ...) adjust_stack(...)
 
-geom_reparam.bar <- function(geom, data) {
+aes_required.bar <- function(geom) c("x", "y")
+aes_default.bar <- function(geom) {
+  list(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = 1)
+}
+
+geom_grob.bar <- function(geom, data) {
   data$width <- data$width %||% 
     geom$width %||% (resolution(data$x, FALSE) * 0.9)
-  transform(data,
-    ymin = pmin(y, 0), ymax = pmax(y, 0),
-    xmin = x - width / 2, xmax = x + width / 2, width = NULL
+  data <- transform(data,
+    ymin = pmin(y, 0), ymax = pmax(y, 0), y = NULL,
+    xmin = x - width / 2, xmax = x + width / 2, x = NULL, width = NULL
   )
+  geom_grob.rect(geom, data)
 }
 
 geom_visualize.bar <- function(geom, data = list()) {
