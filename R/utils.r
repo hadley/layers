@@ -12,3 +12,15 @@ resolution <- function(x, zero = TRUE) {
   
   min(diff(sort(x)))
 }
+
+# Name ggplot grid object
+# Convenience function to name grid objects
+# 
+# @keyword internal
+ggname <- function(prefix, grob) {
+  grob$name <- grobName(grob, prefix)
+  grob
+}
+
+
+.pt <- 1 / 0.352777778

@@ -1,3 +1,11 @@
+#' The layers package.
+#' 
+#' @imports
+#' @doctype package
+#' @name layers
+#' @aliases layers package-layers
+NULL
+
 layer_path <- function(arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
   new_layer(..., geom = geom_from_layer("path"))
 }

@@ -45,9 +45,23 @@ geom_visualize.default <- function(geom, data = list()) {
   geom_grob(geom, data, default.units = "npc")
 }
 
+
+geom_name <- function(geom) {
+  str_c("geom_", class(geom)[1])
+}
+
 geom_draw <- function(geom, data) {
-  name <- paste(class(geom), collapse = "-")
-  ggname(name, geom_grob(geom, data))
+  ggname(geom_name(geom), geom_grob(geom, data))
+}
+
+#' @examples
+#' geom_plot(geom_point(), data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1)))
+geom_plot <- function(geom, data) {
+  grob <- geom_draw(geom, data)
+
+  grid.newpage()
+  pushViewport(dataViewport(data$x, data$y))
+  grid.draw(grob)
 }
 
 #' Deparse a geom into the call that created it.
@@ -70,6 +84,3 @@ geom_from_call <- function(name, arguments = NULL) {
 
 
 
-geom_name <- function(geom) {
-  str_c("geom_", class(geom)[1])
-}

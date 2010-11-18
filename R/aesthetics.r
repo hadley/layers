@@ -20,7 +20,7 @@ aes_all <- function(geom) c(aes_required(geom), names(aes_default(geom)))
 
 
 overall_defaults <- list(
-  point = list(colour = "black", size = 1, shape = 19, alpha = 1),
+  point = list(colour = "black", size = 2, shape = 19, alpha = 1, fill = NA),
   line = list(colour = "black", size = 0.5, linetype = 1, alpha = 1),
   solid = list(colour = NA, fill = "grey20", alpha = 1),
   overlay = list(colour = "#3366FF", fill = "grey20", alpha = 0.4)
@@ -42,7 +42,7 @@ check_set_aesthetics <- function(geom) {
 
 #' Check that all required aesthetics are present.
 check_required_aesthetics <- function(geom, data) {
-  missing <- setdiff(aes_required(geom), names(data))
+  missing_aes <- setdiff(aes_required(geom), names(data))
   if (length(missing_aes) == 0) return()
 
   stop(geom_name(geom), " requires the following missing aesthetics: ",
@@ -71,13 +71,13 @@ check_missing_aesthetics <- function(geom, data) {
 calc_aesthetics <- function(geom, data) {
   # Check required aesthetics are present, and remove rows with missing
   # values.
-  check_required_aesthetics(data, geom)
-  data <- check_missing_aesthetics(data, geom)
+  check_required_aesthetics(geom, data)
+  data <- check_missing_aesthetics(geom, data)
   
   # Set aesthetics override mapped aesthetics in data.
   data <- modifyList(data, geom$aesthetics)
   
   # Set or mapped aesthetics override defaults, and make sure no extraneous
   # columns remain.
-  modifyList(defaults, data)[aes_all(geom)]
+  modifyList(aes_default(geom), data)[aes_all(geom)]
 }
