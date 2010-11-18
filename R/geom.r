@@ -69,7 +69,8 @@ geom_deparse <- function(geom) {
 
 geom_from_call <- function(name, call = NULL) {
   if (is.null(call)) {
-    call <- match.call(sys.call(sys.parent(2), expand.dots = FALSE))
+    parent <- sys.call(-1)
+    call <- match.call(eval(parent[[1]]), parent, expand.dots = FALSE)
   }
   
   call["..."] <- NULL
@@ -80,18 +81,7 @@ geom_from_call <- function(name, call = NULL) {
   geom
 }
 
-geom_from_layer <- function(name, call = NULL) {
-  if (is.null(call)) {
-    call <- match.call(sys.call(sys.parent(2), expand.dots = FALSE))
-  }
-  
-  aes <- call$`...`[aes_all(structure(class = name))]
-    
-  call$`...` <- NULL
-  call$aesthetics <- do.call("call", list(as.name(list), aes))
-  
-  geom_from_call(name, call)
-}
+
 
 geom_name <- function(geom) {
   str_c("geom_", class(geom)[1])
