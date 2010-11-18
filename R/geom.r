@@ -67,16 +67,13 @@ geom_deparse <- function(geom) {
   str_c(geom_name(geom), "(", args, ")")
 }
 
-geom_from_call <- function(name, call = NULL) {
-  if (is.null(call)) {
-    parent <- sys.call(-1)
-    call <- match.call(eval(parent[[1]]), parent, expand.dots = FALSE)
+geom_from_call <- function(name, arguments = NULL) {
+  if (is.null(arguments)) {
+    parent <- sys.frame(-1)
+    arguments <- as.list(parent)
   }
   
-  call["..."] <- NULL
-  call[[1L]] <- as.name("list")
-  
-  geom <- structure(eval(call), class = name)
+  geom <- structure(arguments, class = name)
   check_set_aesthetics(geom)
   geom
 }
