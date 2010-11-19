@@ -24,7 +24,7 @@ geom_path <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linej
 }
 
 aes_required.path <- function(geom) c("x", "y")
-aes_default.path <- function(geom) build_defaults(c("line"))
+aes_default.path <- function(geom) build_defaults("line")
 
 geom_grob.path <- function(geom, data, ...) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
