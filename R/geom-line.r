@@ -16,7 +16,7 @@ geom_line <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linej
 }
 
 geom_grob.line <- function(geom, data, ...) {
-  data <- as.data.frame(data)
+  data <- as.data.frame(data, stringsAsFactors = FALSE)
   data <- data[order(data$group, data$x), ]
   
   # Call pass on to geom_grob.path

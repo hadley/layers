@@ -27,7 +27,7 @@ aes_required.path <- function(geom) c("x", "y")
 aes_default.path <- function(geom) build_defaults(c("line"))
 
 geom_grob.path <- function(geom, data, ...) {
-  data <- as.data.frame(calc_aesthetics(geom, data))
+  data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
   if (nrow(data) < 2) return(zeroGrob())
 
   # Work out grouping variables for grobs

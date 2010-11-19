@@ -72,7 +72,8 @@ check_missing_aesthetics <- function(geom, data) {
 #'
 #' @return a list
 calc_aesthetics <- function(geom, data) {
-  data <- as.data.frame(data[intersect(names(data), aes_all(geom))])
+  data <- as.data.frame(data[intersect(names(data), aes_all(geom))], 
+    stringsAsFactors = FALSE)
 
   # Aesthetics parameters override data; data or parameters override defaults
   data <- modifyList(as.list(data), geom$aesthetics)
