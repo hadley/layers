@@ -13,10 +13,10 @@
 #' @S3method geom_grob path
 #' @S3method geom_visualise path
 #' @examples
-#' df <- data.frame(x = 1:10, y = sample(1:10))
+#' df <- data.frame(x = sample(1:10), y = sample(1:10))
 #' geom_plot(geom_path(), df)
 #' geom_plot(geom_path(list(colour = "red")), df)
-#' geom_plot(geom_path(list(size = 3, shape = 15)), df)
+#' geom_plot(geom_path(list(size = 3)), df)
 #'
 #' geom_plot(geom_path(list(x = 1:10, y = 10:1)))
 geom_path <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
