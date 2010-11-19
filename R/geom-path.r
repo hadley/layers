@@ -36,7 +36,7 @@ geom_grob.path <- function(geom, data, ...) {
   start <- c(TRUE, group_diff)
   end <-   c(group_diff, TRUE)
   
-  if (constant_aesthetics(data)) {
+  if (path_constant_aesthetics(data)) {
     # Lines have the same aesthetics their whole length
     polylineGrob(
       data$x, data$y, id = as.integer(factor(data$group)), 
@@ -95,7 +95,7 @@ remove_missing <- function(geom, data) {
 
 
 # Work out whether we should use lines or segments
-constant_aesthetics <- function(data) {
+path_constant_aesthetics <- function(data) {
 
   # # Possibly faster approach:
   # solid <- vaggregate(data$linetype, data$group, function(x) all(x == 1))

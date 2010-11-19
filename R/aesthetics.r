@@ -87,3 +87,9 @@ calc_aesthetics <- function(geom, data) {
 # all <- sort(unique(c(names(.base_to_ggplot), geom_aes, stat_aes)))
 # dput(all)
 all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color", "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower", "lty", "lwd", "max", "middle", "min", "order", "pch", "radius", "sample", "shape", "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin", "z")
+
+constant_aesthetics <- function(data, exclude = c()) {
+  aes <- data[intersect(names(data), setdiff(all_aesthetics, exclude))]
+  aes <- aes[!duplicated(id(aes)), ]
+  aes
+}

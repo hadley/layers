@@ -29,21 +29,18 @@ geom_munch.rect <- function(geom, data) {
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   rect_to_poly <- function(xmin, xmax, ymin, ymax) {
     data.frame(
-      y = c(ymax, ymax, ymin, ymin, ymax),
-      x = c(xmin, xmax, xmax, xmin, xmin)
+      y = c(ymax, ymax, ymin, ymin, ymax, NA),
+      x = c(xmin, xmax, xmax, xmin, xmin, NA)
     )
   }
   
-  aesthetics <- setdiff(
-    names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
-  )
-  polys <- adply(data, 1, function(row) {
-    poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-    aes <- as.data.frame(row[aesthetics], 
-      stringsAsFactors = FALSE)[rep(1,5), ]
-  })
+  pos <- as.matrix(data[c("xmin", "xmax", "ymin", "ymax")])
+  locations <- adply(pos, 1, splat(rect_to_poly))
+
+  aesthetics <- setdiff(names(data), c("xmin","xmax", "ymin", "ymax"))
+  polys <- cbind(locations, data[rep(1:nrow(data), each = 6), aesthetics])
   
-  list(geom = geom_poly(geom$aesthetics), data = data)
+  list(geom = geom_polygon(geom$aesthetics), data = polys)
 }
 
 geom_visualise.rect <- function(geom, data = list()) {

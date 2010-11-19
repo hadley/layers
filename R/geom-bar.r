@@ -14,6 +14,7 @@
 #' @examples
 #' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
 #' geom_plot(geom_bar(), df)
+#' geom_plot(geom_bar(), df, munch = TRUE)
 #' geom_plot(geom_bar(width = 0.1), df)
 #' geom_plot(geom_bar(width = 0.05), df)
 #' geom_plot(geom_bar(list(colour = "red")), df)

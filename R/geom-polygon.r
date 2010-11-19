@@ -20,12 +20,10 @@ geom_polygon <- function(aesthetics = list()) {
 geom_grob.polygon <- function(geom, data, ...) {
   data <- as.data.frame(calc_aesthetics(geom, data))
 
-  aes <- data[intersect(names(data), 
-    setdiff(all_aesthetics, c("x", "y", "order")))]
-  aes <- aes[!duplicated(id(aes)), ]
+  aes <- constant_aesthetics(data, c("x", "y", "order"))
   if (any(duplicated(aes$group))) {
     stop("Some groups have duplicated aesthetics. Polygons must have 
-      constant fill, colour, size and linetype.")
+      constant fill, colour, alpha, size and linetype.")
   }    
 
   data <- data[order(data$group), ]
