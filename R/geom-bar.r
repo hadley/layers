@@ -13,12 +13,18 @@ aes_required.bar <- function(geom) c("x", "y")
 aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.bar <- function(geom, data) {
-  data$width <- data$width %||% 
-    geom$width %||% (resolution(data$x, FALSE) * 0.9)
-  data <- transform(data,
-    ymin = pmin(y, 0), ymax = pmax(y, 0), y = NULL,
-    xmin = x - width / 2, xmax = x + width / 2, x = NULL, width = NULL
-  )
+  # Parameter overrides all. Calculated from data as fall back in case data
+  # hasn't been aggregated by statistic that computes width.
+  width <- geom$width %||% data$width %||% (resolution(data$x, FALSE) * 0.9)
+  data$width <- NULL
+  
+  data$ymin <- pmin(data$y, 0)
+  data$ymax <- pmax(data$y, 0)
+  data$xmin <- data$x - width / 2
+  data$xmax <- data$x + width / 2
+  data$x <- NULL
+  data$y <- NULL
+
   geom_grob.rect(geom, data)
 }
 

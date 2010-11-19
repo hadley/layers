@@ -12,13 +12,12 @@ aes_default.rect <- function(geom) build_defaults(c("line", "solid"))
 geom_grob.rect <- function(geom, data) {
   data <- calc_aesthetics(geom, data)
   
-  with(data, rectGrob(
-    xmin, ymax, width = xmax - xmin, height = ymax - ymin, 
-    default.units = "native", just = c("left", "top"), 
-    gp = gpar(
-      col = colour, fill = alpha(fill, alpha), 
-      lwd = size * .pt, lty = linetype, lineend = "butt"
-    )))
+  rectGrob(data$xmin, data$ymax, 
+    width = data$xmax - data$xmin, height = data$ymax - data$ymin, 
+    default.units = "native", just = c("left", "top"), gp = gpar(
+      col = data$colour, fill = alpha(data$fill, data$alpha), 
+      lwd = data$size * .pt, lty = data$linetype, lineend = "butt")
+  )
 }
 
 #' Convert rectangles into polygons with four corners
@@ -34,7 +33,7 @@ geom_munch.rect <- function(geom, data) {
     names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
   )
   polys <- adply(data, 1, function(row) {
-    poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
+    poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
     aes <- as.data.frame(row[aesthetics], 
       stringsAsFactors = FALSE)[rep(1,5), ]
   })

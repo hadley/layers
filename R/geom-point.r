@@ -9,10 +9,10 @@ aes_default.point <- function(geom) build_defaults("point")
 geom_grob.point <- function(geom, data, ...) {
   data <- calc_aesthetics(geom, data)
 
-  with(data, {
-    gp <- gpar(col = alpha(colour, alpha), fill = fill, fontsize = size * .pt)
-    pointsGrob(x, y, size = unit(size, "mm"), pch = shape, gp = gp, ...)    
-  })
+  gp <- gpar(col = alpha(data$colour, data$alpha), fill = data$fill, 
+    fontsize = data$size * .pt)
+  pointsGrob(data$x, data$y, size = unit(data$size, "mm"), pch = data$shape,
+    gp = data$gp, ...)    
 }
 
 geom_visualize.point <- function(geom, data = list()) {
@@ -22,4 +22,3 @@ geom_visualize.point <- function(geom, data = list()) {
 
   geom_grob(geom, data, default.units = "npc")
 }
-

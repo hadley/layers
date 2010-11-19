@@ -24,30 +24,26 @@ geom_grob.path <- function(geom, data, ...) {
   
   if (constant_aesthetics(data)) {
     # Lines have the same aesthetics their whole length
-    with(data, 
-      polylineGrob(
-        x, y, id = as.integer(factor(group)), 
-        default.units = "native", arrow = arrow, ...,
-        gp = gpar(
-          col = alpha(colour, alpha)[start], 
-          lwd = size[start] * .pt, lty = linetype[start], 
-          lineend = geom$lineend, linejoin = geom$linejoin, 
-          linemitre = geom$linemitre)
-      )
+    polylineGrob(
+      data$x, data$y, id = as.integer(factor(data$group)), 
+      default.units = "native", arrow = data$arrow, ...,
+      gp = gpar(
+        col = alpha(data$colour, data$alpha)[start], 
+        lwd = data$size[start] * .pt, lty = data$linetype[start], 
+        lineend = geom$lineend, linejoin = geom$linejoin, 
+        linemitre = geom$linemitre)
     )
   } else {
     # Segments have varying aesthetics, but don't work with non-solid lines
     # because the dash pattern is broken
-    with(data, 
-      segmentsGrob(
-        x[!end], y[!end], x[!start], y[!start],
-        default.units="native", arrow = arrow, ...,
-        gp = gpar(
-          col = alpha(colour, alpha)[!end], 
-          lwd = size[!end] * .pt, lty = linetype[!end], 
-          lineend = geom$lineend, linejoin = geom$linejoin, 
-          linemitre = geom$linemitre
-        )
+    segmentsGrob(
+      data$x[!end], data$y[!end], data$x[!start], data$y[!start],
+      default.units="native", arrow = data$arrow, ...,
+      gp = gpar(
+        col = alpha(data$colour, data$alpha)[!end], 
+        lwd = data$size[!end] * .pt, lty = data$linetype[!end], 
+        lineend = geom$lineend, linejoin = geom$linejoin, 
+        linemitre = geom$linemitre
       )
     )
   }
