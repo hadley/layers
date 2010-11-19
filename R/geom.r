@@ -75,7 +75,7 @@ geom_plot <- function(geom, data = list(), munch = FALSE) {
   grob <- geom_draw(geom, data)
 
   grid.newpage()
-  pushViewport(dataViewport(data$x, data$y))
+  pushViewport(dataViewport(data$x, c(data$y, data$ymin, data$ymax)))s
   grid.draw(grob)
 }
 
