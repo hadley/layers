@@ -7,6 +7,7 @@
 #' @S3method aes_default bar
 #' @S3method aes_required bar
 #' @S3method geom_adjust bar
+#' @S3method geom_munch bar
 #' @S3method geom_grob bar
 #' @S3method geom_stat bar
 #' @S3method geom_visualise bar
@@ -27,8 +28,16 @@ aes_required.bar <- function(geom) c("x", "y")
 aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.bar <- function(geom, data) {
-  data <- calc_aesthetics(geom, data)
-  
+  data <- calc_aesthetics(geom, data)  
+  geom_grob(geom_rect(geom$aesthetics), bar_to_rect(geom, data))
+}
+
+geom_munch.bar <- function(geom, data) {
+  geom <- geom_rect(geom$aesthetics)
+  geom_munch(geom, bar_to_rect(geom, data))
+}
+
+bar_to_rect <- function(geom, data) {
   # Parameter overrides all. Calculated from data as fall back in case data
   # hasn't been aggregated by statistic that computes width.
   width <- geom$width %||% data$width %||% (resolution(data$x, FALSE) * 0.9)
@@ -39,9 +48,9 @@ geom_grob.bar <- function(geom, data) {
   data$xmin <- data$x - width / 2
   data$xmax <- data$x + width / 2
   data$x <- NULL
-  data$y <- NULL
+  data$y <- NULL  
 
-  geom_grob(geom_rect(geom$aesthetics), data)
+  data
 }
 
 geom_visualise.bar <- function(geom, data = list()) {

@@ -26,6 +26,7 @@ geom_grob.rect <- function(geom, data) {
 
 #' Convert rectangles into polygons with four corners
 geom_munch.rect <- function(geom, data) {
+  data <- as.data.frame(data, stringsAsFactors = FALSE)
   rect_to_poly <- function(xmin, xmax, ymin, ymax) {
     data.frame(
       y = c(ymax, ymax, ymin, ymin, ymax),
@@ -42,7 +43,7 @@ geom_munch.rect <- function(geom, data) {
       stringsAsFactors = FALSE)[rep(1,5), ]
   })
   
-  list(geom = new_geom("poly"), data = data)  
+  list(geom = geom_poly(geom$aesthetics), data = data)
 }
 
 geom_visualise.rect <- function(geom, data = list()) {

@@ -63,9 +63,15 @@ geom_name <- function(geom) {
 #' Convenience method for plotting geoms.
 #' 
 #' @export
-geom_plot <- function(geom, data = list()) {
+geom_plot <- function(geom, data = list(), munch = FALSE) {
   data <- add_group(data)
   data <- calc_aesthetics(geom, data)
+  if (munch) {
+    munched <- geom_munch(geom, data)
+    geom <- munched$geom
+    data <- munched$data
+  }
+  
   grob <- geom_draw(geom, data)
 
   grid.newpage()
