@@ -1,12 +1,16 @@
 #' 2d rectangles.
 #' 
+#' @export
+#' @S3method aes_default rect
+#' @S3method aes_required rect
+#' @S3method geom_grob rect
+#' @S3method geom_munch rect
+#' @S3method geom_visualise rect
 geom_rect <- function(aesthetics = list(), na.rm = FALSE, ...) {
   geom_from_call("rect")
 }
 
-
 aes_required.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
-aes_present.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
 aes_default.rect <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.rect <- function(geom, data) {
@@ -41,8 +45,7 @@ geom_munch.rect <- function(geom, data) {
   list(geom = new_geom("poly"), data = data)  
 }
 
-  
-geom_visualize.rect <- function(geom, data = list()) {
+geom_visualise.rect <- function(geom, data = list()) {
   defaults <- list(
     xmin = c(0.2, 0.6),
     xmin = c(0.4, 0.8),

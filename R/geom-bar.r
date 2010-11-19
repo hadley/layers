@@ -3,6 +3,13 @@
 #' @seealso \code{\link{stat_bin}: for more details of the binning algorithm #' @seealso \code{\link{position_dodge}}: for side-by-side barcharts
 #' @seealso \code{\link{position_stack}}: for more info on stacking
 #'
+#' @export
+#' @S3method aes_default bar
+#' @S3method aes_required bar
+#' @S3method geom_adjust bar
+#' @S3method geom_grob bar
+#' @S3method geom_stat bar
+#' @S3method geom_visualise bar
 #' @examples
 #' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
 #' geom_plot(geom_bar(), df)
@@ -37,7 +44,7 @@ geom_grob.bar <- function(geom, data) {
   geom_grob(geom_rect(geom$aesthetics), data)
 }
 
-geom_visualize.bar <- function(geom, data = list()) {
+geom_visualise.bar <- function(geom, data = list()) {
   pos <- list(
     x = c(0.3, 0.7),
     width = 0.3,

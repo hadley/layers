@@ -4,9 +4,14 @@
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
 #' @param arrow Arrow specification, as created by ?arrow
-#' @seealso \code{\link{geom_line}}: functional (ordered) lines, 
-#' @seealso \code{\link{geom_polygon}}: filled paths (polygons), 
+#' @seealso \code{\link{geom_line}}: functional (ordered) lines
+#' @seealso \code{\link{geom_polygon}}: filled paths (polygons)
 #' @seealso \code{\link{geom_segment}}: line segments
+#' @export
+#' @S3method aes_default path
+#' @S3method aes_required path
+#' @S3method geom_grob path
+#' @S3method geom_visualise path
 #' @examples
 #' df <- data.frame(x = 1:10, y = sample(1:10))
 #' geom_plot(geom_path(), df)
@@ -17,6 +22,9 @@
 geom_path <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
   geom_from_call("path")
 }
+
+aes_required.path <- function(geom) c("x", "y")
+aes_default.path <- function(geom) build_defaults(c("line"))
 
 geom_grob.path <- function(geom, data, ...) {
   data <- as.data.frame(calc_aesthetics(geom, data))
@@ -110,12 +118,7 @@ constant_aesthetics <- function(data) {
   constant
 }
 
-aes_required.path <- function(geom) c("x", "y")
-aes_present.path <- function(geom) c()
-aes_default.path <- function(geom) build_defaults(c("line"))
-
-
-geom_visualize.path <- function(geom, data = list()) {
+geom_visualise.path <- function(geom, data = list()) {
   defaults <- list(
     x = c(0.2, 0.4, 0.8, 0.6, 0.5), 
     y = c(0.2, 0.7, 0.4, 0.1, 0.5))

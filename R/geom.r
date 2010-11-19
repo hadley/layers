@@ -1,5 +1,12 @@
 #' Render a grid grob from a geom and a dataset.
 #' 
+#' This is the key method to implement when creating a new geom.  Given a
+#' geom and its paramters, and a dataset, it renders the data to produce a
+#' grid grob. The data supplied to this function has already been scaled,
+#' so all values are interpretable by grid, but it has not been fleshed
+#' out with geom defaults and aesthetics parameters - use 
+#' \code{\link{calc_aesthetics}} to do so.
+#'
 #' @return a grob
 geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
 
@@ -29,6 +36,8 @@ geom_munch.default <- function(geom, data) list(geom = geom, data = data)
 #' 
 #' @aliases geom_stat geom_adjust
 #' @export geom_stat geom_adjust
+#' @S3method geom_stat default
+#' @S3method geom_adjust default
 #' @usage geom_stat(geom, ...)
 #' @usage geom_adjust(geom, ...)
 #' @param ... Other arguments passed on to the object creation function.  
@@ -40,8 +49,10 @@ geom_adjust <- function(geom, ...) UseMethod("geom_adjust")
 geom_stat.default <- function(geom, ...) stat_identity()
 geom_adjust.default <- function(geom, ...) adjust_identity()
 
-geom_visualize <- function(geom, data) UseMethod("geom_visualise")
-geom_visualize.default <- function(geom, data = list()) {
+#' @export
+#' @S3method geom_visualise default
+geom_visualise <- function(geom, data) UseMethod("geom_visualise")
+geom_visualise.default <- function(geom, data = list()) {
   geom_grob(geom, data, default.units = "npc")
 }
 
@@ -50,6 +61,8 @@ geom_name <- function(geom) {
 }
 
 #' Convenience method for plotting geoms.
+#' 
+#' @export
 geom_plot <- function(geom, data = list()) {
   data <- add_group(data)
   data <- calc_aesthetics(geom, data)
@@ -61,7 +74,11 @@ geom_plot <- function(geom, data = list()) {
 }
 
 geom_draw <- function(geom, data) {
-  ggname(geom_name(geom), geom_grob(geom, data))
+  name_grob(geom_grob(geom, data), geom_name(geom))
+}
+name_grob <- function(grob, name) {
+  grob$name <- grobName(grob, name)
+  grob
 }
 
 #' Deparse a geom into the call that created it.
