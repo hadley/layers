@@ -38,6 +38,8 @@ check_set_aesthetics <- function(geom) {
     
   stop(geom_name(geom), " does not have aesthetics ", 
     names(geom$aesthetics)[!correct])
+
+  data
 }
 
 #' Check that all required aesthetics are present.
@@ -48,6 +50,7 @@ check_required_aesthetics <- function(geom, data) {
   stop(geom_name(geom), " requires the following missing aesthetics: ",
     str_c(missing_aes, collapse = ", "), call. = FALSE)
   
+  data
 }
 
 #' Should be called once for each layer, not once for each panel.
@@ -64,20 +67,24 @@ check_missing_aesthetics <- function(geom, data) {
   data
 }
 
-#' Update data with defaults and set values.
+#' Update data with aesthetic defaults and parameters values.
 #'
-#' Also checks whether or necessary aesthetics are present.
-#' @return a data frame
+#' This function is called by individual grob functions to combine data, 
+#' defaults and aesthetic parameters. It also checks that all necessary
+#' aesthetics are present.
+#'
+#' A list is returned so that constant aesthetics don't need to be needlessly
+#' repeated - the recycling can occur internally in grid. \code{geom_grob}
+#' methods should try and maintain this structure where possible.
+#'
+#' @return a list
 calc_aesthetics <- function(geom, data) {
-  # Check required aesthetics are present, and remove rows with missing
-  # values.
+  data <- as.data.frame(data[intersect(names(data), aes_all(geom))])
+
+  # Aesthetics parameters override data; data or parameters override defaults
+  data <- modifyList(as.list(data), geom$aesthetics)
+  data <- modifyList(aes_default(geom), data)
+  
   check_required_aesthetics(geom, data)
-  data <- check_missing_aesthetics(geom, data)
-  
-  # Set aesthetics override mapped aesthetics in data.
-  data <- modifyList(data, geom$aesthetics)
-  
-  # Set or mapped aesthetics override defaults, and make sure no extraneous
-  # columns remain.
-  modifyList(aes_default(geom), data)[aes_all(geom)]
+  data
 }

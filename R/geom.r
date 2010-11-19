@@ -55,8 +55,14 @@ geom_draw <- function(geom, data) {
 }
 
 #' @examples
-#' geom_plot(geom_point(), data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1)))
-geom_plot <- function(geom, data) {
+#' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
+#' geom_plot(geom_point(), df)
+#' geom_plot(geom_point(list(colour = "red")), df)
+#' geom_plot(geom_point(list(size = 3, shape = 15)), df)
+#'
+#' geom_plot(geom_point(list(x = 1:10, y = 10:1)))
+geom_plot <- function(geom, data = list()) {
+  data <- calc_aesthetics(geom, data)
   grob <- geom_draw(geom, data)
 
   grid.newpage()
