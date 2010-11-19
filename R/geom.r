@@ -101,6 +101,6 @@ geom_from_call <- function(name, arguments = NULL) {
   }
   
   geom <- structure(arguments, class = name)
-  check_set_aesthetics(geom)
+  check_aesthetic_params(geom, geom$aesthetics)
   geom
 }

@@ -25,14 +25,12 @@ aes_all <- function(geom) {
 }
 
 #' Check that aesthetic parameters are for correct aesthetics.
-check_set_aesthetics <- function(geom) {
-  correct <- names(geom$aesthetics) %in% aes_all(geom)
+check_aesthetic_params <- function(geom, aesthetics) {
+  correct <- names(aesthetics) %in% aes_all(geom)
   if (all(correct)) return()
     
   stop(geom_name(geom), " does not have aesthetics ", 
-    names(geom$aesthetics)[!correct])
-
-  data
+    names(aesthetics)[!correct])
 }
 
 #' Check that all required aesthetics are present.
