@@ -15,6 +15,7 @@
 #'   xend = x + rnorm(20, sd = 1/5), 
 #'   yend = y + rnorm(20, sd = 1/5))
 #' geom_plot(geom_segment(), df)
+#' geom_plot(geom_segment(), df, munch = TRUE)
 #' geom_plot(geom_segment(arrow = arrow()), df)
 geom_segment <- function(aesthetics = list(), arrow = NULL) {
   geom_from_call("segment")
@@ -33,11 +34,12 @@ geom_grob.segment <- function(geom, data, ...) {
 }
 
 geom_munch.segment <- function(geom, data) {
+  data <- as.data.frame(data)
   data$group <- 1:nrow(data)
 
-  starts <- data[, setdiff(names(data), "xend", "yend")]
+  starts <- data[, setdiff(names(data), c("xend", "yend"))]
 
-  ends <- data[, setdiff(names(data), "x", "y")]
+  ends <- data[, setdiff(names(data), c("x", "y"))]
   ends$x <- ends$xend
   ends$y <- ends$yend
   ends$xend <- NULL
