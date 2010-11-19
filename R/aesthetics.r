@@ -16,8 +16,9 @@ aes_present <- function(geom) UseMethod("aes_present")
 aes_default <- function(geom) UseMethod("aes_default")
 
 #' All aesthetics
-aes_all <- function(geom) c(aes_required(geom), names(aes_default(geom)))
-
+aes_all <- function(geom) {
+  c("group", aes_required(geom), names(aes_default(geom)))
+}
 
 overall_defaults <- list(
   point = list(colour = "black", size = 2, shape = 19, alpha = 1, fill = NA),
@@ -88,3 +89,10 @@ calc_aesthetics <- function(geom, data) {
   check_required_aesthetics(geom, data)
   data
 }
+
+# all_aes <- function(y) c(names(y$default_aes()), y$required_aes)
+# geom_aes <- unlist(lapply(Geom$find_all(), all_aes))
+# stat_aes <- unlist(lapply(Stat$find_all(), all_aes))
+# all <- sort(unique(c(names(.base_to_ggplot), geom_aes, stat_aes)))
+# dput(all)
+all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color", "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower", "lty", "lwd", "max", "middle", "min", "order", "pch", "radius", "sample", "shape", "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin", "z")

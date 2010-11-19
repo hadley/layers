@@ -1,6 +1,6 @@
 #' The layers package.
 #' 
-#' @imports
+#' @imports scales plyr
 #' @doctype package
 #' @name layers
 #' @aliases layers package-layers

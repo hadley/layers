@@ -2,6 +2,13 @@
 #'
 #' @seealso \code{\link{stat_bin}: for more details of the binning algorithm #' @seealso \code{\link{position_dodge}}: for side-by-side barcharts
 #' @seealso \code{\link{position_stack}}: for more info on stacking
+#'
+#' @examples
+#' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
+#' geom_plot(geom_bar(), df)
+#' geom_plot(geom_bar(width = 0.1), df)
+#' geom_plot(geom_bar(width = 0.05), df)
+#' geom_plot(geom_bar(list(colour = "red")), df)
 geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
   geom_from_call("bar")
 }
@@ -13,6 +20,8 @@ aes_required.bar <- function(geom) c("x", "y")
 aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.bar <- function(geom, data) {
+  data <- calc_aesthetics(geom, data)
+  
   # Parameter overrides all. Calculated from data as fall back in case data
   # hasn't been aggregated by statistic that computes width.
   width <- geom$width %||% data$width %||% (resolution(data$x, FALSE) * 0.9)
@@ -25,7 +34,7 @@ geom_grob.bar <- function(geom, data) {
   data$x <- NULL
   data$y <- NULL
 
-  geom_grob.rect(geom, data)
+  geom_grob(geom_rect(geom$aesthetics), data)
 }
 
 geom_visualize.bar <- function(geom, data = list()) {

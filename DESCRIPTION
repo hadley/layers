@@ -6,6 +6,6 @@ Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description:
 Depends: R (>= 2.12)
-Imports: grid, scales
+Imports: grid, scales, plyr
 License: MIT
 LazyLoad: yes

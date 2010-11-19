@@ -45,29 +45,23 @@ geom_visualize.default <- function(geom, data = list()) {
   geom_grob(geom, data, default.units = "npc")
 }
 
-
 geom_name <- function(geom) {
   str_c("geom_", class(geom)[1])
 }
 
-geom_draw <- function(geom, data) {
-  ggname(geom_name(geom), geom_grob(geom, data))
-}
-
-#' @examples
-#' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
-#' geom_plot(geom_point(), df)
-#' geom_plot(geom_point(list(colour = "red")), df)
-#' geom_plot(geom_point(list(size = 3, shape = 15)), df)
-#'
-#' geom_plot(geom_point(list(x = 1:10, y = 10:1)))
+#' Convenience method for plotting geoms.
 geom_plot <- function(geom, data = list()) {
+  data <- add_group(data)
   data <- calc_aesthetics(geom, data)
   grob <- geom_draw(geom, data)
 
   grid.newpage()
   pushViewport(dataViewport(data$x, data$y))
   grid.draw(grob)
+}
+
+geom_draw <- function(geom, data) {
+  ggname(geom_name(geom), geom_grob(geom, data))
 }
 
 #' Deparse a geom into the call that created it.
@@ -87,6 +81,3 @@ geom_from_call <- function(name, arguments = NULL) {
   check_set_aesthetics(geom)
   geom
 }
-
-
-

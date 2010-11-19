@@ -7,14 +7,20 @@
 #' @seealso \code{\link{geom_line}}: functional (ordered) lines, 
 #' @seealso \code{\link{geom_polygon}}: filled paths (polygons), 
 #' @seealso \code{\link{geom_segment}}: line segments
+#' @examples
+#' df <- data.frame(x = 1:10, y = sample(1:10))
+#' geom_plot(geom_path(), df)
+#' geom_plot(geom_path(list(colour = "red")), df)
+#' geom_plot(geom_path(list(size = 3, shape = 15)), df)
+#'
+#' geom_plot(geom_path(list(x = 1:10, y = 10:1)))
 geom_path <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
   geom_from_call("path")
 }
 
 geom_grob.path <- function(geom, data, ...) {
+  data <- as.data.frame(calc_aesthetics(geom, data))
   if (nrow(data) < 2) return(zeroGrob())
-
-  data <- calc_aesthetics(geom, data)
 
   # Work out grouping variables for grobs
   n <- nrow(data)
