@@ -90,7 +90,9 @@ name_grob <- function(grob, name) {
 #' Deparse a geom into the call that created it.
 #' Useful for serialising ggplot2 objects back into R code.
 geom_deparse <- function(geom) {
-  args <- str_c(names(geom), " = ", lapply(geom, deparse), collapse = ", ")
+  values <- unlist(lapply(geom, deparse, control = NULL))
+  args <- str_c(names(geom), " = ", values, collapse = ", ")
+  
   str_c(geom_name(geom), "(", args, ")")
 }
 
@@ -100,7 +102,11 @@ geom_from_call <- function(name, arguments = NULL) {
     arguments <- as.list(parent)
   }
   
-  geom <- structure(arguments, class = name)
+  geom <- structure(arguments, class = c(name, "geom"))
   check_aesthetic_params(geom, geom$aesthetics)
   geom
+}
+
+print.geom <- function(x, ...) {
+  cat(geom_deparse(x), "\n")
 }
