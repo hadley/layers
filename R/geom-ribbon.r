@@ -51,7 +51,7 @@ geom_grob.ribbon <- function(geom, data) {
       lwd = aes$size * .pt, lty = aes$linetype))
 }
 
-geom_visualise.polygon <- function(geom, data = list()) {
+geom_visualise.ribbon <- function(geom, data = list()) {
   defaults <- list(
     x = c(0, 0.3, 0.5, 0.8, 1), 
     ymin = c(0.5, 0.3, 0.4, 0.2, 0.3),
