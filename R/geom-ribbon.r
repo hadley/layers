@@ -25,7 +25,7 @@ geom_grob.ribbon <- function(geom, data) {
   data <- data[order(data$group, data$x), ]
 
   aes <- constant_aesthetics(data, c("x", "ymin", "ymax", "order"))
-  if (any(duplicated(aes$group))) {
+  if (anyDuplicated(aes$group)) {
     stop("Some groups have duplicated aesthetics. Ribbons must have 
       constant fill, colour, alpha, size and linetype.")
   }

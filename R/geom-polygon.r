@@ -21,7 +21,7 @@ geom_grob.polygon <- function(geom, data, ...) {
   data <- as.data.frame(calc_aesthetics(geom, data))
 
   aes <- constant_aesthetics(data, c("x", "y", "order"))
-  if (any(duplicated(aes$group))) {
+  if (anyDuplicated(aes$group)) {
     stop("Some groups have duplicated aesthetics. Polygons must have 
       constant fill, colour, alpha, size and linetype.")
   }    
