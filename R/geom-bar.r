@@ -6,10 +6,8 @@
 #' @export
 #' @S3method aes_default bar
 #' @S3method aes_required bar
-#' @S3method geom_adjust bar
 #' @S3method geom_munch bar
 #' @S3method geom_grob bar
-#' @S3method geom_stat bar
 #' @S3method geom_visualise bar
 #' @examples
 #' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
@@ -22,8 +20,6 @@ geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
   geom_from_call("bar")
 }
 
-geom_stat.bar <- function(geom, ...) stat_bin(...)
-geom_adjust.bar <- function(geom, ...) adjust_stack(...)
 
 aes_required.bar <- function(geom) c("x", "y")
 aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
