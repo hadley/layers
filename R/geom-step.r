@@ -22,11 +22,8 @@ geom_data.step <- function(geom, data, ...) {
   NextMethod()
 }
 
-geom_visualise.step <- function(geom, data = list()) {
-  defaults <- list(x = 1:15, y = 1:15)
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
+aes_icon.step <- function(geom) {
+  list(x = 1:15, y = 1:15)
 }
 
 stairstep <- function(data, direction="hv") {

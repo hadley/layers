@@ -23,11 +23,8 @@ geom_data.line <- function(geom, data, ...) {
   NextMethod()
 }
 
-geom_visualise.line <- function(geom, data = list()) {
-  defaults <- list(
+aes_icon.line <- function(geom) {
+  list(
     x = c(0, 0.25, 0.5, 0.75, 1),
     y = c(0.2, 0.7, 0.4, 0.8, 0.3))
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
 }

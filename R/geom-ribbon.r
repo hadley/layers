@@ -53,12 +53,9 @@ geom_grob.ribbon <- function(geom, data) {
       lwd = aes$size * .pt, lty = aes$linetype))
 }
 
-geom_visualise.ribbon <- function(geom, data = list()) {
-  defaults <- list(
+aes_icon.ribbon <- function(geom) {
+  list(
     x = c(0, 0.3, 0.5, 0.8, 1), 
     ymin = c(0.5, 0.3, 0.4, 0.2, 0.3),
     ymax = c(0.7, 0.5, 0.6, 0.5, 0.7))
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
 }

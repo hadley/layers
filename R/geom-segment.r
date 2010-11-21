@@ -46,14 +46,11 @@ geom_munch.segment <- function(geom, data) {
   list(geom = geom_path(geom$aesthetics), data = rbind(starts, ends))
 }
 
-geom_visualise.segment <- function(geom, data = list()) {
-  defaults <- list(
+aes_icon.segment <- function(geom) {
+  list(
     x = c(0.1, 0.3, 0.5, 0.7),
     y = c(0.3, 0.5, 0.1, 0.9), 
     xend = c(0.2, 0.5, 0.7, 0.9),
     yend = c(0.8, 0.7, 0.4, 0.3))
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
 }
 

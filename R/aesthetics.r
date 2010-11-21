@@ -17,6 +17,12 @@ aes_required <- function(geom) UseMethod("aes_required")
 #' @export
 aes_present <- function(geom) UseMethod("aes_present")
 
+#' Default aesthetics for drawing representation icons.
+#'
+#' @return list of aesthetics
+#' @export
+aes_icon <- function(geom) UseMethod("aes_icon")
+
 #' All aesthetics
 #'
 #' @export

@@ -41,13 +41,11 @@ geom_munch.rect <- function(geom, data) {
   list(geom = geom_polygon(geom$aesthetics), data = polys)
 }
 
-geom_visualise.rect <- function(geom, data = list()) {
-  defaults <- list(
+aes_icon.rect <- function(geom) {
+  list(
     xmin = c(0.2, 0.6),
     xmin = c(0.4, 0.8),
     ymin = c(0.2, 0.4),
     ymax = c(0.6, 1)
   )
-  data <- modifyList(defaults, data)
-  geom_grob(geom, data, default.units = "npc")
 }

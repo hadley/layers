@@ -48,12 +48,6 @@ bar_to_rect <- function(geom, data) {
   data
 }
 
-geom_visualise.bar <- function(geom, data = list()) {
-  pos <- list(
-    x = c(0.3, 0.7),
-    width = 0.3,
-    y = c(0.4, 0.8)
-  )
-  data <- modifyList(pos, data)
-  geom_grob(geom, data, default.units = "npc")
+aes_icon.bar <- function(geom) {
+  list(x = c(0.3, 0.7), width = 0.3, y = c(0.4, 0.8))
 }

@@ -28,10 +28,7 @@ geom_grob.point <- function(geom, data, ...) {
     gp = data$gp, ...)    
 }
 
-geom_visualise.point <- function(geom, data = list()) {
+aes_icon.point <- function(geom) {
   pos <- seq(0.1, 0.9, length = 6)
-  defaults <- list(x = pos, y = pos, size = 0.5, shape = 19)
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
+  list(x = pos, y = pos, size = 0.5, shape = 19)
 }

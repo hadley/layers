@@ -128,11 +128,8 @@ path_constant_aesthetics <- function(data) {
   constant
 }
 
-geom_visualise.path <- function(geom, data = list()) {
-  defaults <- list(
+aes_icon.path <- function(geom) {
+  list(
     x = c(0.2, 0.4, 0.8, 0.6, 0.5), 
     y = c(0.2, 0.7, 0.4, 0.1, 0.5))
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
 }

@@ -96,6 +96,17 @@ geom_deparse <- function(geom) {
   str_c(geom_name(geom), "(", args, ")")
 }
 
+geom_visualise <- function(geom, data = list()) {
+  data <- modifyList(aes_icon(geom), data)
+  data <- geom_data(geom, data)
+  grob <- geom_draw(geom, data)
+  
+  grid.newpage()
+  pushViewport(dataViewport(data$x, c(data$y, data$ymin, data$ymax)))
+  grid.draw(grob)
+}
+
+
 geom_from_call <- function(name, arguments = NULL) {
   if (is.null(arguments)) {
     parent <- sys.frame(-1)
@@ -110,3 +121,4 @@ geom_from_call <- function(name, arguments = NULL) {
 print.geom <- function(x, ...) {
   cat(geom_deparse(x), "\n")
 }
+

@@ -39,9 +39,6 @@ geom_grob.text <- function(geom, data, ...) {
     fontface = geom$fontface, lineheight = geom$lineheight))  
 }
 
-geom_visualise.text <- function(geom, data = list()) {
-  defaults <- list(x = 0.5, y = 0.5, angle = 45, label = "text")
-  data <- modifyList(defaults, data)
-
-  geom_grob(geom, data, default.units = "npc")
+aes_icon.text <- function(geom) {
+  list(x = 0.5, y = 0.5, angle = 45, label = "text")
 }
