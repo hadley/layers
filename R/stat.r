@@ -10,3 +10,14 @@ stat_from_call <- function(name, arguments = NULL) {
   
   structure(arguments, class = c(name, "stat"))
 }
+
+join_aesthetics <- function(stats, data) {
+  unique <- ddply(data, "group", uniquecols)
+  join(stats, unique, by = "group")
+}
+
+uniquecols <- function(df) {
+  df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop=FALSE]
+  rownames(df) <- 1
+  df
+}

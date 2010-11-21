@@ -1,0 +1,3 @@
+Difference from ggplot2:
+
+* stat_density: loses trim argument, and gains n and bw arguments to better control performance of base::density

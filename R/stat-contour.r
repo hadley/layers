@@ -41,6 +41,7 @@ stat_transform.contour <- function(stat, data, xrange, yrange) {
   }
   
   contours <- ddply(data, "group", contour, breaks = breaks)
+  contours <- join_aesthetics(contours, data)
   contours$group <- id(contours[c("group", "piece")])
   contours
 }

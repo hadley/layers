@@ -25,18 +25,7 @@ stat_transform.sum <- function(stat, data, xrange, yrange) {
   counts$prop <- ave(counts$n, counts$group, FUN = function(x) x / sum(x))
   counts
 
-  # # For each group, at each location, need number of points, and 
-  # # shared aesthetics. Error if aesthetics are not unique.  
-  # aes <- constant_aesthetics(data)
-  # 
-  # if (anyDuplicated(id)) {
-  #   stop("Aesthetics must be constant at each location for stat_sum", 
-  #     call. = FALSE)
-  # }
-  # 
-  # counts <- aes[order(id), ]
-  # counts$n <- vaggregate(aes$weight, id, sum, .default = NA_real_)
-  # 
-  # 
-  # counts
+  # counts <- count(data, c("x", "y", "group"), "weight")
+  # counts$prop <- ave(counts$n, counts$group, FUN = function(x) x / sum(x))
+  # join_aesthetics(counts, data)
 }
