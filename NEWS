@@ -1,3 +1,5 @@
 Difference from ggplot2:
 
-* stat_density: loses trim argument, and gains n and bw arguments to better control performance of base::density
+* stat_density: loses `trim` parameter, and gains `n` and `bw` parameters to better control performance of base::density
+
+* geom_text: gains `fontface`, `fontfamily` and `lineheight` parameters
