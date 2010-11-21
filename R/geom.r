@@ -30,6 +30,25 @@ geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
 geom_munch <- function(geom, data) UseMethod("geom_munch")
 geom_munch.default <- function(geom, data) list(geom = geom, data = data)
 
+#' Process data for the geom.
+#'
+#' This method is run just prior to creating the grob, and is used to get the
+#' data into a format which requires minimal processing to be supplied to a
+#' geom. This is separated out into a separate method because a number of 
+#' grobs process data in a slightly different way but otherwise inherit all
+#' other behaviours, and to make testing easier.
+#' 
+#' The default behaviour uses \code{\link{calc_aesthetics}} to update the
+#' data with the aesthetic parameters and defaults stored in the geom.
+#' 
+#' @export
+#' @S3method geom_data default
+#' @return a list, suitable for operation with \code{\link{geom_data}}
+geom_data <- function(geom, data) UseMethod("geom_data")
+geom_data.default <- function(geom, data) {
+  calc_aesthetics(geom, data)  
+}
+
 
 #' @export
 #' @S3method geom_visualise default
@@ -47,13 +66,12 @@ geom_name <- function(geom) {
 #' @export
 geom_plot <- function(geom, data = list(), munch = FALSE) {
   data <- add_group(data)
-  data <- calc_aesthetics(geom, data)
+  data <- geom_data(geom, data)
   if (munch) {
     munched <- geom_munch(geom, data)
     geom <- munched$geom
     data <- munched$data
   }
-  
   grob <- geom_draw(geom, data)
 
   grid.newpage()

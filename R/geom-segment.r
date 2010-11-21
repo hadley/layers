@@ -25,8 +25,6 @@ aes_required.segment <- function(geom) c("x", "y", "xend", "yend")
 aes_default.segment <- function(geom) build_defaults("line")
 
 geom_grob.segment <- function(geom, data, ...) {
-  data <- calc_aesthetics(geom, data)
-  
   segmentsGrob(data$x, data$y, data$xend, data$yend, default.units = "native",
     gp = gpar(col = alpha(data$colour, data$alpha), lwd = data$size * .pt, 
       lty = data$linetype, lineend = "butt"), 

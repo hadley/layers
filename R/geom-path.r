@@ -1,5 +1,7 @@
 #' Connect observations, in original order.
 #' 
+#' Lines containing less than two observations will be silently dropped.
+#'
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
@@ -10,6 +12,7 @@
 #' @export
 #' @S3method aes_default path
 #' @S3method aes_required path
+#' @S3method geom_data path
 #' @S3method geom_grob path
 #' @S3method geom_visualise path
 #' @examples
@@ -26,8 +29,18 @@ geom_path <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linej
 aes_required.path <- function(geom) c("x", "y")
 aes_default.path <- function(geom) build_defaults("line")
 
-geom_grob.path <- function(geom, data, ...) {
+geom_data.path <- function(geom, data) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
+  data <- remove_missing(data, na.rm = geom$na.rm)
+  
+  # Silently drop lines with less than two points, preserving order
+  rows <- ave(seq_len(nrow(data)), data$group, FUN = length)
+  data <- data[rows >= 2, ]
+  
+  data
+}
+
+geom_grob.path <- function(geom, data, ...) {
   if (nrow(data) < 2) return(zeroGrob())
 
   # Work out grouping variables for grobs
@@ -63,8 +76,10 @@ geom_grob.path <- function(geom, data, ...) {
   }
 }
 
-remove_missing <- function(geom, data) {
 
+# Remove missing values at the start or end of a line - can't drop in the 
+# middle since you expect those to be shown by a break in the line
+remove_missing <- function(data, na.rm = FALSE) {
   keep <- function(x) {
     # from first non-missing to last non-missing
     first <- match(FALSE, x, nomatch = 1) - 1
@@ -74,8 +89,7 @@ remove_missing <- function(geom, data) {
       rep(TRUE, last - first), 
       rep(FALSE, length(x) - last))
   }    
-  # Drop missing values at the start or end of a line - can't drop in the 
-  # middle since you expect those to be shown by a break in the line
+
   missing <- !complete.cases(data[c("x", "y", "size", "colour",
     "linetype")])
   kept <- ave(missing, data$group, FUN=keep)
@@ -85,10 +99,6 @@ remove_missing <- function(geom, data) {
     warning("Removed ", sum(!kept), " rows containing missing values", 
       " (geom_path).", call. = FALSE)
   }
-  
-  # Silently drop lines with less than two points, preserving order
-  rows <- ave(seq_len(nrow(data)), data$group, FUN = length)
-  data <- data[rows >= 2, ]
   
   data
 }

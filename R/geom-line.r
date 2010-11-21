@@ -4,7 +4,7 @@
 #' @seealso \code{link{geom_segment}}: line segments
 #' @seealso \code{link{geom_ribbon}}: fill between line and x-axis
 #' @export geom_line
-#' @S3method geom_grob line
+#' @S3method geom_data line
 #' @S3method geom_visualise line
 #' @examples
 #' df <- data.frame(x = sample(1:10), y = sample(1:10))
@@ -15,11 +15,11 @@ geom_line <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linej
   geom_from_call(c("line", "path"))
 }
 
-geom_grob.line <- function(geom, data, ...) {
+geom_data.line <- function(geom, data, ...) {
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data <- data[order(data$group, data$x), ]
   
-  # Call pass on to geom_grob.path
+  # Call pass on to geom_data.path
   NextMethod()
 }
 

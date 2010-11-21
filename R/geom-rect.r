@@ -14,8 +14,6 @@ aes_required.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
 aes_default.rect <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.rect <- function(geom, data) {
-  data <- calc_aesthetics(geom, data)
-  
   rectGrob(data$xmin, data$ymax, 
     width = data$xmax - data$xmin, height = data$ymax - data$ymin, 
     default.units = "native", just = c("left", "top"), gp = gpar(

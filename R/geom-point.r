@@ -22,8 +22,6 @@ aes_present.point <- function(geom) c("size", "shape")
 aes_default.point <- function(geom) build_defaults("point")
 
 geom_grob.point <- function(geom, data, ...) {
-  data <- calc_aesthetics(geom, data)
-
   gp <- gpar(col = alpha(data$colour, data$alpha), fill = data$fill, 
     fontsize = data$size * .pt)
   pointsGrob(data$x, data$y, size = unit(data$size, "mm"), pch = data$shape,

@@ -5,7 +5,7 @@
 #' @param direction = "direction of stairs: 'vh' for vertical then horizontal,
 #'    or 'hv' for horizontal then vertical"
 #' @export
-#' @S3method geom_grob step
+#' @S3method geom_data step
 #' @S3method geom_visualise step
 #' df <- data.frame(x = 1:10, y = 1:10)
 #' geom_plot(geom_step(), df)
@@ -14,11 +14,11 @@ geom_step <- function(aesthetics = list(), direction = "hv") {
   geom_from_call(c("step", "path"))
 }
 
-geom_grob.step <- function(geom, data, ...) {
+geom_data.step <- function(geom, data, ...) {
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data <- stairstep(data, geom$direction)
   
-  # Call pass on to geom_grob.path
+  # Call pass on to geom_data.path
   NextMethod()
 }
 

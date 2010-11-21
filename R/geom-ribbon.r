@@ -20,10 +20,12 @@ geom_ribbon <- function(aesthetics = list(), ...) {
 aes_required.ribbon <- function(geom) c("x", "ymin", "ymax")
 aes_default.ribbon <- function(geom) build_defaults(c("solid", "line"))
 
-geom_grob.ribbon <- function(geom, data) {
+geom_data.ribbon <- function(geom, data) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
-  data <- data[order(data$group, data$x), ]
+  data[order(data$group, data$x), ]
+}
 
+geom_grob.ribbon <- function(geom, data) {
   aes <- constant_aesthetics(data, c("x", "ymin", "ymax", "order"))
   if (anyDuplicated(aes$group)) {
     stop("Some groups have duplicated aesthetics. Ribbons must have 

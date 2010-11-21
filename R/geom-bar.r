@@ -20,12 +20,10 @@ geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
   geom_from_call("bar")
 }
 
-
 aes_required.bar <- function(geom) c("x", "y")
 aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
 
 geom_grob.bar <- function(geom, data) {
-  data <- calc_aesthetics(geom, data)  
   geom_grob(geom_rect(geom$aesthetics), bar_to_rect(geom, data))
 }
 

@@ -17,18 +17,19 @@ geom_polygon <- function(aesthetics = list()) {
   check_aesthetic_params(geom, geom$aes_data)
   geom
 }
-geom_grob.polygon <- function(geom, data, ...) {
-  data <- as.data.frame(calc_aesthetics(geom, data))
 
+geom_grob.polygon <- function(geom, data, ...) {
+  data <- as.data.frame(data, stringsAsFactors = FALSE)
+  
   aes <- constant_aesthetics(data, c("x", "y", "order"))
   if (anyDuplicated(aes$group)) {
     stop("Some groups have duplicated aesthetics. Polygons must have 
       constant fill, colour, alpha, size and linetype.")
-  }    
-
+  }
+  
   data <- data[order(data$group), ]
   aes <- aes[order(aes$group), ]
-
+  
   polygonGrob(data$x, data$y, default.units = "native", ...,
     id = as.integer(factor(data$group)), gp = gpar(
       col = aes$colour, fill = alpha(aes$fill, aes$alpha), 
