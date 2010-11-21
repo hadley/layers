@@ -16,9 +16,7 @@ geom_step <- function(aesthetics = list(), direction = "hv") {
 
 geom_data.step <- function(geom, data, ...) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
-  data <- stairstep(data, geom$direction)
-  
-  data
+  stairstep(data, geom$direction)
 }
 
 aes_icon.step <- function(geom) {
