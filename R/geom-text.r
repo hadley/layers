@@ -40,5 +40,5 @@ geom_grob.text <- function(geom, data, ...) {
 }
 
 aes_icon.text <- function(geom) {
-  list(x = 0.5, y = 0.5, angle = 45, label = "text")
+  data.frame(x = 0.5, y = 0.5, angle = 45, label = "text")
 }

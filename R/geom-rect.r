@@ -42,9 +42,9 @@ geom_munch.rect <- function(geom, data) {
 }
 
 aes_icon.rect <- function(geom) {
-  list(
+  data.frame(
     xmin = c(0.2, 0.6),
-    xmin = c(0.4, 0.8),
+    xmax = c(0.4, 0.8),
     ymin = c(0.2, 0.4),
     ymax = c(0.6, 1)
   )

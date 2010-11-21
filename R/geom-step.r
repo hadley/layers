@@ -15,15 +15,14 @@ geom_step <- function(aesthetics = list(), direction = "hv") {
 }
 
 geom_data.step <- function(geom, data, ...) {
-  data <- as.data.frame(data, stringsAsFactors = FALSE)
+  data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
   data <- stairstep(data, geom$direction)
   
-  # Call pass on to geom_data.path
-  NextMethod()
+  data
 }
 
 aes_icon.step <- function(geom) {
-  list(x = 1:15, y = 1:15)
+  data.frame(x = 1:15, y = 1:15)
 }
 
 stairstep <- function(data, direction="hv") {
@@ -42,6 +41,6 @@ stairstep <- function(data, direction="hv") {
   data.frame(
     x = data$x[xs],
     y = data$y[ys],
-    data[xs, setdiff(names(data), c("x", "y"))]
+    data[xs, setdiff(names(data), c("x", "y")), drop = FALSE]
   ) 
 }

@@ -24,7 +24,7 @@ geom_data.line <- function(geom, data, ...) {
 }
 
 aes_icon.line <- function(geom) {
-  list(
+  data.frame(
     x = c(0, 0.25, 0.5, 0.75, 1),
     y = c(0.2, 0.7, 0.4, 0.8, 0.3))
 }

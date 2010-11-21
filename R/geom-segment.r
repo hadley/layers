@@ -47,7 +47,7 @@ geom_munch.segment <- function(geom, data) {
 }
 
 aes_icon.segment <- function(geom) {
-  list(
+  data.frame(
     x = c(0.1, 0.3, 0.5, 0.7),
     y = c(0.3, 0.5, 0.1, 0.9), 
     xend = c(0.2, 0.5, 0.7, 0.9),

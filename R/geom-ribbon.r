@@ -54,7 +54,7 @@ geom_grob.ribbon <- function(geom, data) {
 }
 
 aes_icon.ribbon <- function(geom) {
-  list(
+  data.frame(
     x = c(0, 0.3, 0.5, 0.8, 1), 
     ymin = c(0.5, 0.3, 0.4, 0.2, 0.3),
     ymax = c(0.7, 0.5, 0.6, 0.5, 0.7))

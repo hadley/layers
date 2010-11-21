@@ -75,8 +75,11 @@ geom_plot <- function(geom, data = list(), munch = FALSE) {
   grob <- geom_draw(geom, data)
 
   grid.newpage()
-  pushViewport(dataViewport(data$x, c(data$y, data$ymin, data$ymax)))
+  pushViewport(dataViewport(c(data$x, data$xmin, data$xmax), 
+    c(data$y, data$ymin, data$ymax)))
   grid.draw(grob)
+  
+  invisible(grob)
 }
 
 geom_draw <- function(geom, data) {
@@ -98,12 +101,7 @@ geom_deparse <- function(geom) {
 
 geom_visualise <- function(geom, data = list()) {
   data <- modifyList(aes_icon(geom), data)
-  data <- geom_data(geom, data)
-  grob <- geom_draw(geom, data)
-  
-  grid.newpage()
-  pushViewport(dataViewport(data$x, c(data$y, data$ymin, data$ymax)))
-  grid.draw(grob)
+  geom_plot(geom, as.data.frame(data, stringsAsFactors = FALSE))
 }
 
 

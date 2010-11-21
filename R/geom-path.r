@@ -129,7 +129,7 @@ path_constant_aesthetics <- function(data) {
 }
 
 aes_icon.path <- function(geom) {
-  list(
+  data.frame(
     x = c(0.2, 0.4, 0.8, 0.6, 0.5), 
     y = c(0.2, 0.7, 0.4, 0.1, 0.5))
 }

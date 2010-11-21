@@ -5,10 +5,11 @@
 #' @S3method geom_grob rug
 #' @param length length of rug tassles, as a grid unit
 geom_rug <- function(aesthetics = list(), length = unit(0.03, "npc")) {
-  geom_from_call(c("rug", "path"))
+  geom_from_call("rug")
 }
 
-aes_required.rug <- function(geom) c()
+aes_required.rug <- function(geom) c("x", "y")
+aes_default.rug <- function(geom) build_defaults("line")
 
 geom_grob.rug <- function(geom, data) {
   rugs <- list()
@@ -31,4 +32,8 @@ geom_grob.rug <- function(geom, data) {
   }  
   
   grobTree(rugs$x, rugs$y)
+}
+
+aes_icon.rug <- function(geom) {
+  list(x = seq(0, 8, by = 2), y = seq(1, 9, by = 2))
 }

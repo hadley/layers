@@ -30,5 +30,5 @@ geom_grob.point <- function(geom, data, ...) {
 
 aes_icon.point <- function(geom) {
   pos <- seq(0.1, 0.9, length = 6)
-  list(x = pos, y = pos, size = 0.5, shape = 19)
+  data.frame(x = pos, y = pos, size = 0.5, shape = 19)
 }

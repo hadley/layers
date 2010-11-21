@@ -40,7 +40,7 @@ aes_required.polygon <- function(geom) c("x", "y")
 aes_default.polygon <- function(geom) build_defaults(c("line", "solid"))
 
 aes_icon.polygon <- function(geom) {
-  list(
+  data.frame(
     x = c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), 
     y = c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3))
 }
