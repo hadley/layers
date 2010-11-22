@@ -8,14 +8,17 @@
 #' @param kde2d other arguments passed on to \code{\link{kde2d}}
 #' @importFrom MASS kde2d
 stat_density2d <- function(contour = TRUE, n = 100, kde2d = list()) {
-  stat_from_call()
+  kde2d$n <- n
+  rm(n)
+  
+  stat_from_call("density2d")
 }
 aes_required.density2d <- c("x", "y")
 
 stat_transform.density2d <- function(stat, data, xrange, yrange) {  
   density <- ddply(data, "group", density2d, args = stat$kde2d)
   
-  if (contour) {
+  if (stat$contour) {
     contours <- stat_transform(stat_contour(), data)
     join_aesthetics(contours, data)
   } else {
@@ -24,7 +27,7 @@ stat_transform.density2d <- function(stat, data, xrange, yrange) {
   }
 }
 
-density2d <- function(data, args) {
-  dens <- do.call("kde2d", c(list(x = data$x, y = data$y, n = n), args))
+density2d <- function(data, args = list()) {
+  dens <- do.call("kde2d", c(list(x = data$x, y = data$y), args))
   data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
 }
