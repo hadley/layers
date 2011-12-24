@@ -45,7 +45,7 @@ check_required_aesthetics <- function(geom, data) {
   if (length(missing_aes) == 0) return()
 
   stop(geom_name(geom), " requires the following missing aesthetics: ",
-    str_c(missing_aes, collapse = ", "), call. = FALSE)
+    paste(missing_aes, collapse = ", ", sep = ""), call. = FALSE)
   
   data
 }

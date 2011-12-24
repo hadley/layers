@@ -75,7 +75,7 @@ geom_visualise <- function(geom, data = list()) {
 #'
 #' @export
 geom_name <- function(geom) {
-  str_c("geom_", class(geom)[1])
+  paste("geom_", class(geom)[1], sep = "")
 }
 
 #' Convenience method for plotting geoms.
@@ -134,9 +134,9 @@ name_grob <- function(grob, name) {
 #' Useful for serialising ggplot2 objects back into R code.
 geom_deparse <- function(geom) {
   values <- unlist(lapply(geom, deparse, control = NULL))
-  args <- str_c(names(geom), " = ", values, collapse = ", ")
+  args <- paste(names(geom), " = ", values, collapse = ", ", sep = "")
   
-  str_c(geom_name(geom), "(", args, ")")
+  paste(geom_name(geom), "(", args, ")", sep = "")
 }
 
 geom_from_call <- function(name, arguments = NULL) {
