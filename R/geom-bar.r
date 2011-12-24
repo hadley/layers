@@ -38,6 +38,13 @@ geom_data.bar <- function(geom, data) {
   NextMethod()
 }
 
+#' @S3method geom_range bar
+geom_range.bar <- function(geom, data) {
+  x <- range(data$x - data$width / 2, data$x + data$width / 2, na.rm = TRUE) 
+  y <- range(0, data$y, na.rm = TRUE)
+  list(x = x, y = y)
+}
+
 #' @S3method geom_munch bar
 geom_munch.bar <- function(geom, data) {
   geom <- geom_rect(geom$aesthetics)
