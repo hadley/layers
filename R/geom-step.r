@@ -7,6 +7,7 @@
 #' @export
 #' @S3method geom_data step
 #' @S3method geom_visualise step
+#' @examples
 #' df <- data.frame(x = 1:10, y = 1:10)
 #' geom_plot(geom_step(), df)
 #' geom_plot(geom_step(direction = "vh"), df)

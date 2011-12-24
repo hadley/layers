@@ -1,9 +1,8 @@
 #' The layers package.
 #' 
-#' @imports scales plyr
-#' @doctype package
+#' @import scales plyr
+#' @docType package
 #' @name layers
-#' @aliases layers package-layers
 NULL
 
 geom_from_layer <- function(name, call = NULL) {
@@ -70,22 +69,12 @@ layer <- function() {
   
 }
 
-#' Generates parameter description for a geom-layer.
+# Generates parameter description for a geom-layer.
 rd_geom_params <- function(geom) {
   # Parse documentation and extract parameters
   # Add extra description for mapping, data, and ... (including a list of
   # all valid aesthetics)
 }
-
-#' @param inherit.aes
-#' @param legend single logical value.  If \code{TRUE} forces display of this
-#'   layer on the legend, if \code{FALSE} never displays, if \code{NA}
-#'   only if it shows data.
-#' @param train.limits if \code{FALSE} data on this layer will not affect 
-#'   scale limits
-#' @param subset a quoted expression giving a subset expression to use to
-#'   subset the dta
-
 
 build_layer <- function(mapping, data, geom, stat, adjust, params, geom.params, stat.params) {  
   args <- parse_dots(list(...), stat = stat, position = position)

@@ -12,12 +12,14 @@
 #' @S3method stat_transform density
 #' @S3method aes_required density
 #' @S3method aes_present density
-#' @result \item{density}{density estimate}
-#' @result \item{count}{density * number of points, an approximate count, and
-#'   useful for stacked density plots}
-#' @result \item{scaled}{density estimate, scaled to maximum of 1}
-#' @seealso \code{\link{stat_bin}} for the histogram
-#' @seealso \code{\link{density}} for details of the algorithm used
+#' @return \itemize{
+#'   \item{density}{density estimate}
+#'   \item{count}{density * number of points, an approximate count, and
+#'     useful for stacked density plots}
+#'    \item{scaled}{density estimate, scaled to maximum of 1}
+#' }
+#' @seealso \code{\link{stat_bin}} for the histogram, 
+#'  \code{\link{density}} for details of the algorithm used
 stat_density <- function(adjust = 1, kernel = "gaussian", bw = "nrd0", n = 512) {
   stat_from_call("density")
 }

@@ -27,24 +27,24 @@
 #'   xlim = c(4, 10), ylim = c(4, 10))
 #' qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
 #'   xlim = c(4, 10), ylim = c(4, 10))
-StatBin2d <- proto(Stat, {
-  objname <- "bin2d"
-
-  default_aes <- function(.) aes(fill = ..count..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomRect
-
-  calculate <- function(., data, scales, binwidth = NULL, bins = c(30, 30), breaks = NULL, origin = NULL, drop = TRUE, ...) {
-    
-    bins <- bin_rect(data$x, data$y, data$weight, 
-      xbreaks = interval_breaks(bins[1], binwidth[1], 
-        range = scales$x$output_set()),
-      ybreaks = interval_breaks(bins[2], binwidth[2], 
-        range = scales$y$output_set()),
-    )
-    
-    if (drop) bins <- bins[bins$count > 0, ]
-    bins$density <- bin$count / sum(bin$count, na.rm = TRUE)
-    bins
-  }
-})
+# StatBin2d <- proto(Stat, {
+#   objname <- "bin2d"
+# 
+#   default_aes <- function(.) aes(fill = ..count..)
+#   required_aes <- c("x", "y")
+#   default_geom <- function(.) GeomRect
+# 
+#   calculate <- function(., data, scales, binwidth = NULL, bins = c(30, 30), breaks = NULL, origin = NULL, drop = TRUE, ...) {
+#     
+#     bins <- bin_rect(data$x, data$y, data$weight, 
+#       xbreaks = interval_breaks(bins[1], binwidth[1], 
+#         range = scales$x$output_set()),
+#       ybreaks = interval_breaks(bins[2], binwidth[2], 
+#         range = scales$y$output_set()),
+#     )
+#     
+#     if (drop) bins <- bins[bins$count > 0, ]
+#     bins$density <- bin$count / sum(bin$count, na.rm = TRUE)
+#     bins
+#   }
+# })

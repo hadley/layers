@@ -8,9 +8,9 @@
 #' @export
 #' @S3method aes_required text
 #' @S3method aes_defaults text
-#' @S3meothd geom_grob text
-#' @S3meothd geom_visaulise text
-#' @example
+#' @S3method geom_grob text
+#' @S3method geom_visaulise text
+#' @examples
 #' df <- data.frame(x = 1:5, y = 1:5, label = letters[1:5])
 #' geom_plot(geom_text(), df)
 #' geom_plot(geom_text(list(angle = 45)), df)

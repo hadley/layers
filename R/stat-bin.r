@@ -38,30 +38,30 @@
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
-StatBin <- proto(Stat, {
-  objname <- "bin"
-
-  informed <- FALSE
-  
-  calculate_groups <- function(., data, ...) {
-    .$informed <- FALSE
-    .super$calculate_groups(., data, ...)
-  }
-  
-  calculate <- function(., data, scales, bins = 30, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
-    range <- scales$x$output_set()
-    
-    if (!is.null(breaks)) {
-      breaks <- interval_breaks(bins, binwidth, origin)
-    }
-    open <- if (right) "right" else "left"
-
-    bin_interval(data$x, data$weight, breaks = breaks, open = open)
-  }
-
-  icon <- function(.) GeomHistogram$icon()
-  default_aes <- function(.) aes(y = ..count..)
-  required_aes <- c("x")
-  default_geom <- function(.) GeomBar
-  
-})
+# StatBin <- proto(Stat, {
+#   objname <- "bin"
+# 
+#   informed <- FALSE
+#   
+#   calculate_groups <- function(., data, ...) {
+#     .$informed <- FALSE
+#     .super$calculate_groups(., data, ...)
+#   }
+#   
+#   calculate <- function(., data, scales, bins = 30, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
+#     range <- scales$x$output_set()
+#     
+#     if (!is.null(breaks)) {
+#       breaks <- interval_breaks(bins, binwidth, origin)
+#     }
+#     open <- if (right) "right" else "left"
+# 
+#     bin_interval(data$x, data$weight, breaks = breaks, open = open)
+#   }
+# 
+#   icon <- function(.) GeomHistogram$icon()
+#   default_aes <- function(.) aes(y = ..count..)
+#   required_aes <- c("x")
+#   default_geom <- function(.) GeomBar
+#   
+# })

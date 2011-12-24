@@ -4,8 +4,42 @@ Title: Layer related components from ggplot2
 Version: 0.0.0
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
-Description:
-Depends: R (>= 2.12)
-Imports: grid, scales, plyr
+Description: 
+Depends:
+    R (>= 2.12)
+Imports:
+    grid,
+    scales,
+    plyr
 License: MIT
 LazyLoad: yes
+Collate:
+    'adjust-fill.r'
+    'adjust-stack.r'
+    'adjust.r'
+    'aesthetics-defaults.r'
+    'aesthetics-group.r'
+    'aesthetics.r'
+    'geom-bar.r'
+    'geom-line.r'
+    'geom-path.r'
+    'geom-point.r'
+    'geom-polygon.r'
+    'geom-rect.r'
+    'geom-ribbon.r'
+    'geom-rug.r'
+    'geom-segment.r'
+    'geom-step.r'
+    'geom-text.r'
+    'geom.r'
+    'layer-defaults.r'
+    'layer.r'
+    'scaled-values.r'
+    'stat-contour.r'
+    'stat-density-point.r'
+    'stat-density.r'
+    'stat-density2d.r'
+    'stat-identity.r'
+    'stat-sum.r'
+    'stat.r'
+    'utils.r'
