@@ -18,7 +18,7 @@ geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
 # Aesthetics -----------------------------------------------------------------
 
 #' @S3method aes_required bar
-aes_required.bar <- function(geom) c("x", "y")
+aes_required.bar <- function(geom) c("x", "y", "width")
 
 #' @S3method aes_default bar
 aes_default.bar <- function(geom) build_defaults(c("line", "solid"))
@@ -65,7 +65,7 @@ bar_to_rect <- function(geom, data) {
 #' @S3method geom_grob bar
 geom_grob.bar <- function(geom, data) {
   rectGrob(data$x, 0, 
-    width = width, height = data$y, 
+    width = data$width, height = data$y, 
     default.units = "native", just = c("center", "top"), gp = gpar(
       col = data$colour, fill = alpha(data$fill, data$alpha), 
       lwd = data$size * .pt, lty = data$linetype, lineend = "butt")
