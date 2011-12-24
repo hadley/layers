@@ -12,7 +12,9 @@
   This function will only be run if the coordinate system
   is non-linear, and requires "munching" (breaking the data
   into small enough pieces that they will still be linear
-  after transformation).
+  after transformation).  This method doesn't actually do
+  the munching - it just gets the data into a standard form
+  where it can happen.
 }
 \details{
   This usually requires reparameterising the geom to by

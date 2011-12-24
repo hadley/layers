@@ -12,7 +12,7 @@ geom_plot <- function(geom, data = list(), munch = FALSE) {
   check_required_aesthetics(geom, data)
   
   if (munch) {
-    munched <- geom_munch(geom, data)
+    munched <- geom_premunch(geom, data)
     geom <- munched$geom
     data <- munched$data
   }
@@ -42,7 +42,9 @@ geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
 #'
 #' This function will only be run if the coordinate system is non-linear, and
 #' requires "munching" (breaking the data into small enough pieces that they
-#' will still be linear after transformation).
+#' will still be linear after transformation).  This method doesn't actually
+#' do the munching - it just gets the data into a standard form where it can
+#' happen.
 #'
 #' This usually requires reparameterising the geom to by something that can
 #' be drawn by \code{\link{geom_path}} or \code{\link{geom_polygon}}, and so
@@ -56,9 +58,9 @@ geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
 #'   \item{geom}{the new geom}
 #' }
 #' @export
-#' @S3method geom_munch default
-geom_munch <- function(geom, data) UseMethod("geom_munch")
-geom_munch.default <- function(geom, data) list(geom = geom, data = data)
+#' @S3method geom_premunch default
+geom_premunch <- function(geom, data) UseMethod("geom_premunch")
+geom_premunch.default <- function(geom, data) list(geom = geom, data = data)
 
 #' Process data for the geom.
 #'
@@ -112,7 +114,7 @@ geom_name <- function(geom) {
 #'
 #' The default method inspects x and y aesthetics and data values. This 
 #' function should be called with data passed through \code{\link{geom_data}}
-#' (and possibly through \code{\link{geom_munch}}) so only the data component
+#' (and possibly through \code{\link{geom_premunch}}) so only the data component
 #' generally needs to be inspected.
 geom_range <- function(geom, data) {
   UseMethod("geom_range")

@@ -33,8 +33,8 @@ geom_range.rect <- function(geom, data) {
 
 # Data and munching ----------------------------------------------------------
 
-#' @S3method geom_munch rect
-geom_munch.rect <- function(geom, data) {
+#' @S3method geom_premunch rect
+geom_premunch.rect <- function(geom, data) {
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   rect_to_poly <- function(xmin, xmax, ymin, ymax) {
     data.frame(

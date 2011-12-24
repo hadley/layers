@@ -42,8 +42,8 @@ geom_range.segment <- function(geom, data) {
   list(x = x, y = y)
 }
 
-#' @S3method geom_munch segment
-geom_munch.segment <- function(geom, data) {
+#' @S3method geom_premunch segment
+geom_premunch.segment <- function(geom, data) {
   data <- as.data.frame(data)
   data$group <- 1:nrow(data)
 

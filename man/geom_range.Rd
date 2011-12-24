@@ -8,7 +8,7 @@
   The default method inspects x and y aesthetics and data
   values. This function should be called with data passed
   through \code{\link{geom_data}} (and possibly through
-  \code{\link{geom_munch}}) so only the data component
+  \code{\link{geom_premunch}}) so only the data component
   generally needs to be inspected.
 }
 

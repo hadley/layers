@@ -45,10 +45,10 @@ geom_range.bar <- function(geom, data) {
   list(x = x, y = y)
 }
 
-#' @S3method geom_munch bar
-geom_munch.bar <- function(geom, data) {
+#' @S3method geom_premunch bar
+geom_premunch.bar <- function(geom, data) {
   geom <- geom_rect(geom$aesthetics)
-  geom_munch(geom, bar_to_rect(geom, data))
+  geom_premunch(geom, bar_to_rect(geom, data))
 }
 
 bar_to_rect <- function(geom, data) {
