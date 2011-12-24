@@ -1,16 +1,25 @@
 #' Marginal rug plots
 #'
 #' @export
-#' @S3method aes_required geom
-#' @S3method geom_grob rug
 #' @param length length of rug tassles, as a grid unit
 geom_rug <- function(aesthetics = list(), length = unit(0.03, "npc")) {
   geom_from_call("rug")
 }
 
+#' @S3method aes_required rug
 aes_required.rug <- function(geom) c("x", "y")
+
+#' @S3method aes_default geom
 aes_default.rug <- function(geom) build_defaults("line")
 
+#' @S3method aes_icon geom
+aes_icon.rug <- function(geom) {
+  list(x = seq(0, 8, by = 2), y = seq(1, 9, by = 2))
+}
+
+# Drawing --------------------------------------------------------------------
+
+#' @S3method geom_grob rug
 geom_grob.rug <- function(geom, data) {
   rugs <- list()
   if (!is.null(data$x)) {
@@ -34,6 +43,3 @@ geom_grob.rug <- function(geom, data) {
   grobTree(rugs$x, rugs$y)
 }
 
-aes_icon.rug <- function(geom) {
-  list(x = seq(0, 8, by = 2), y = seq(1, 9, by = 2))
-}

@@ -5,8 +5,6 @@
 #' @param direction = "direction of stairs: 'vh' for vertical then horizontal,
 #'    or 'hv' for horizontal then vertical"
 #' @export
-#' @S3method geom_data step
-#' @S3method geom_visualise step
 #' @examples
 #' df <- data.frame(x = 1:10, y = 1:10)
 #' geom_plot(geom_step(), df)
@@ -15,13 +13,19 @@ geom_step <- function(aesthetics = list(), direction = "hv") {
   geom_from_call(c("step", "path"))
 }
 
+# Aesthetics -----------------------------------------------------------------
+
+#' @S3method aes_icon step
+aes_icon.step <- function(geom) {
+  data.frame(x = 1:15, y = 1:15)
+}
+
+# Data and munching ----------------------------------------------------------
+
+#' @S3method geom_data step
 geom_data.step <- function(geom, data, ...) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
   stairstep(data, geom$direction)
-}
-
-aes_icon.step <- function(geom) {
-  data.frame(x = 1:15, y = 1:15)
 }
 
 stairstep <- function(data, direction="hv") {

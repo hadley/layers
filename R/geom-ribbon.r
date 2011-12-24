@@ -4,8 +4,6 @@
 #' @seealso \code{\link{geom_linerange}}: discrete intervals (lines)
 #' @seealso \code{\link{geom_polygon}}: general polygons
 #' @export
-#' @S3method aes_default ribbon
-#' @S3method aes_required ribbon
 #' @S3method geom_grob ribbon
 #' @S3method geom_visualise ribbon
 #' @examples
@@ -17,13 +15,39 @@
 geom_ribbon <- function(aesthetics = list(), ...) {
   geom_from_call("ribbon")
 }
+
+# Aesthetics -----------------------------------------------------------------
+
+#' @S3method aes_required ribbon
 aes_required.ribbon <- function(geom) c("x", "ymin", "ymax")
+
+#' @S3method aes_default ribbon
 aes_default.ribbon <- function(geom) build_defaults(c("solid", "line"))
 
+#' @S3method aes_icon ribbon
+aes_icon.ribbon <- function(geom) {
+  data.frame(
+    x = c(0, 0.3, 0.5, 0.8, 1), 
+    ymin = c(0.5, 0.3, 0.4, 0.2, 0.3),
+    ymax = c(0.7, 0.5, 0.6, 0.5, 0.7))
+}
+
+# Data and munching ----------------------------------------------------------
+
+#' @S3method geom_data ribbon
 geom_data.ribbon <- function(geom, data) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
   data[order(data$group, data$x), ]
 }
+
+#' @S3method geom_range ribbon
+geom_range.ribbon <- function(geom, data) {
+  x <- range(data$x, na.rm = TRUE)
+  y <- range(data$ymin, data$ymax, na.rm = TRUE)
+  list(x = x, y = y)
+}
+
+# Drawing --------------------------------------------------------------------
 
 geom_grob.ribbon <- function(geom, data) {
   aes <- constant_aesthetics(data, c("x", "ymin", "ymax", "order"))
@@ -53,9 +77,3 @@ geom_grob.ribbon <- function(geom, data) {
       lwd = aes$size * .pt, lty = aes$linetype))
 }
 
-aes_icon.ribbon <- function(geom) {
-  data.frame(
-    x = c(0, 0.3, 0.5, 0.8, 1), 
-    ymin = c(0.5, 0.3, 0.4, 0.2, 0.3),
-    ymax = c(0.7, 0.5, 0.6, 0.5, 0.7))
-}

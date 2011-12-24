@@ -12,12 +12,24 @@ geom_point <- function(aesthetics = list(), na.rm = FALSE, ...) {
   geom_from_call("point")
 }
 
+# Aesthetics -----------------------------------------------------------------
+
 #' @S3method aes_required path
 aes_required.point <- function(geom) c("x", "y")
+
 #' @S3method aes_present path
 aes_present.point <- function(geom) c("size", "shape")
+
 #' @S3method aes_default path
 aes_default.point <- function(geom) build_defaults("point")
+
+#' @S3method geom_visualise path
+aes_icon.point <- function(geom) {
+  pos <- seq(0.1, 0.9, length = 6)
+  data.frame(x = pos, y = pos, size = 0.5, shape = 19)
+}
+
+# Drawing --------------------------------------------------------------------
 
 #' @S3method geom_grob path
 geom_grob.point <- function(geom, data, ...) {
@@ -27,8 +39,3 @@ geom_grob.point <- function(geom, data, ...) {
     gp = data$gp, ...)    
 }
 
-#' @S3method geom_visualise path
-aes_icon.point <- function(geom) {
-  pos <- seq(0.1, 0.9, length = 6)
-  data.frame(x = pos, y = pos, size = 0.5, shape = 19)
-}

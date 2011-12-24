@@ -1,28 +1,39 @@
 #' 2d rectangles.
 #' 
 #' @export
-#' @S3method aes_default rect
-#' @S3method aes_required rect
-#' @S3method geom_grob rect
-#' @S3method geom_munch rect
-#' @S3method geom_visualise rect
 geom_rect <- function(aesthetics = list(), na.rm = FALSE, ...) {
   geom_from_call("rect")
 }
 
+# Aesthetics -----------------------------------------------------------------
+
+#' @S3method aes_required rect
 aes_required.rect <- function(geom) c("xmin", "xmax", "ymin", "ymax")
+
+#' @S3method aes_default rect
 aes_default.rect <- function(geom) build_defaults(c("line", "solid"))
 
-geom_grob.rect <- function(geom, data) {
-  rectGrob(data$xmin, data$ymax, 
-    width = data$xmax - data$xmin, height = data$ymax - data$ymin, 
-    default.units = "native", just = c("left", "top"), gp = gpar(
-      col = data$colour, fill = alpha(data$fill, data$alpha), 
-      lwd = data$size * .pt, lty = data$linetype, lineend = "butt")
+#' @S3method aes_icon rect
+aes_icon.rect <- function(geom) {
+  data.frame(
+    xmin = c(0.2, 0.6),
+    xmax = c(0.4, 0.8),
+    ymin = c(0.2, 0.4),
+    ymax = c(0.6, 1)
   )
 }
 
-#' Convert rectangles into polygons with four corners
+
+#' @S3method geom_range rect
+geom_range.rect <- function(geom, data) {
+  x <- range(data$xmin, data$xmax, na.rm = TRUE)
+  y <- range(data$ymin, data$ymax, na.rm = TRUE)
+  list(x = x, y = y)
+}
+
+# Data and munching ----------------------------------------------------------
+
+#' @S3method geom_munch rect
 geom_munch.rect <- function(geom, data) {
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   rect_to_poly <- function(xmin, xmax, ymin, ymax) {
@@ -41,11 +52,15 @@ geom_munch.rect <- function(geom, data) {
   list(geom = geom_polygon(geom$aesthetics), data = polys)
 }
 
-aes_icon.rect <- function(geom) {
-  data.frame(
-    xmin = c(0.2, 0.6),
-    xmax = c(0.4, 0.8),
-    ymin = c(0.2, 0.4),
-    ymax = c(0.6, 1)
+# Drawing --------------------------------------------------------------------
+
+#' @S3method geom_grob rect
+geom_grob.rect <- function(geom, data) {
+  rectGrob(data$xmin, data$ymax, 
+    width = data$xmax - data$xmin, height = data$ymax - data$ymin, 
+    default.units = "native", just = c("left", "top"), gp = gpar(
+      col = data$colour, fill = alpha(data$fill, data$alpha), 
+      lwd = data$size * .pt, lty = data$linetype, lineend = "butt")
   )
 }
+

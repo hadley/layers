@@ -18,6 +18,9 @@
   testing easier.
 }
 \details{
+  This is done at the last minute to avoid passing around
+  large chunks of duplicated data
+
   The default behaviour uses \code{\link{calc_aesthetics}}
   to update the data with the aesthetic parameters and
   defaults stored in the geom.

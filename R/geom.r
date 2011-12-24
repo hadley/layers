@@ -3,10 +3,8 @@
 #' This is the key method to implement when creating a new geom.  Given a
 #' geom and its paramters, and a dataset, it renders the data to produce a
 #' grid grob. The data supplied to this function has already been scaled,
-#' so all values are interpretable by grid, but it has not been fleshed
-#' out with geom defaults and aesthetics parameters - use 
-#' \code{\link{calc_aesthetics}} to do so. (This is done at the last minute 
-#' to avoid passing around large chunks of duplicated data)
+#' so all values are interpretable by grid, and data and aesthetics have 
+#' been combined into a single list by \code{\link{geom_draw}}
 #'
 #' @return a grob
 geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
@@ -39,7 +37,10 @@ geom_munch.default <- function(geom, data) list(geom = geom, data = data)
 #' data into a format which requires minimal processing to be supplied to a
 #' geom. This is separated out into a separate method because a number of 
 #' grobs process data in a slightly different way but otherwise inherit all
-#' other behaviours, and to make testing easier.
+#' other behaviours, and to make testing easier. 
+#'
+#' This is done at the last minute to avoid passing around large chunks of
+#' duplicated data
 #' 
 #' The default behaviour uses \code{\link{calc_aesthetics}} to update the
 #' data with the aesthetic parameters and defaults stored in the geom.
@@ -87,19 +88,38 @@ geom_name <- function(geom) {
 geom_plot <- function(geom, data = list(), munch = FALSE) {
   data <- add_group(data)
   data <- geom_data(geom, data)
+  
+  check_required_aesthetics(geom, data)
+  
   if (munch) {
     munched <- geom_munch(geom, data)
     geom <- munched$geom
     data <- munched$data
   }
   grob <- geom_draw(geom, data)
+  rng <- geom_range(geom, data)
 
   grid.newpage()
-  pushViewport(dataViewport(c(data$x, data$xmin, data$xmax), 
-    c(data$y, data$ymin, data$ymax)))
+  pushViewport(dataViewport(rng$x, rng$y))
   grid.draw(grob)
   
   invisible(grob)
+}
+
+#' Compute the range of the data supplied to a geom.
+#'
+#' The default method inspects x and y aesthetics and data values. This 
+#' function should be called with data passed through \code{\link{geom_data}}
+#' (and possibly through \code{\link{geom_munch}}) so only the data component
+#' generally needs to be inspected.
+geom_range <- function(geom, data) {
+  UseMethod("geom_range")
+}
+#' @S3method geom_range default
+geom_range.default <- function(geom, data) {
+  x <- range(data$x, na.rm = TRUE)
+  y <- range(data$y, na.rm = TRUE)
+  list(x = x, y = y)
 }
 
 geom_draw <- function(geom, data) {
@@ -118,8 +138,6 @@ geom_deparse <- function(geom) {
   
   str_c(geom_name(geom), "(", args, ")")
 }
-
-
 
 geom_from_call <- function(name, arguments = NULL) {
   if (is.null(arguments)) {

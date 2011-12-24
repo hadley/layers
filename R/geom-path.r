@@ -10,11 +10,6 @@
 #' @seealso \code{\link{geom_polygon}}: filled paths (polygons)
 #' @seealso \code{\link{geom_segment}}: line segments
 #' @export
-#' @S3method aes_default path
-#' @S3method aes_required path
-#' @S3method geom_data path
-#' @S3method geom_grob path
-#' @S3method geom_visualise path
 #' @examples
 #' df <- data.frame(x = sample(1:10), y = sample(1:10))
 #' geom_plot(geom_path(), df)
@@ -26,9 +21,24 @@ geom_path <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linej
   geom_from_call("path")
 }
 
+# Aesthetics -----------------------------------------------------------------
+
+#' @S3method aes_required path
 aes_required.path <- function(geom) c("x", "y")
+
+#' @S3method aes_default path
 aes_default.path <- function(geom) build_defaults("line")
 
+#' @S3method aes_icon path
+aes_icon.path <- function(geom) {
+  data.frame(
+    x = c(0.2, 0.4, 0.8, 0.6, 0.5), 
+    y = c(0.2, 0.7, 0.4, 0.1, 0.5))
+}
+
+# Data and munching ----------------------------------------------------------
+
+#' @S3method geom_data path
 geom_data.path <- function(geom, data) {
   data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
   data <- remove_missing(data, na.rm = geom$na.rm)
@@ -39,43 +49,6 @@ geom_data.path <- function(geom, data) {
   
   data
 }
-
-geom_grob.path <- function(geom, data, ...) {
-  if (nrow(data) < 2) return(zeroGrob())
-
-  # Work out grouping variables for grobs
-  n <- nrow(data)
-  group_diff <- data$group[-1] != data$group[-n]
-  start <- c(TRUE, group_diff)
-  end <-   c(group_diff, TRUE)
-  
-  if (path_constant_aesthetics(data)) {
-    # Lines have the same aesthetics their whole length
-    polylineGrob(
-      data$x, data$y, id = as.integer(factor(data$group)), 
-      default.units = "native", arrow = data$arrow, ...,
-      gp = gpar(
-        col = alpha(data$colour, data$alpha)[start], 
-        lwd = data$size[start] * .pt, lty = data$linetype[start], 
-        lineend = geom$lineend, linejoin = geom$linejoin, 
-        linemitre = geom$linemitre)
-    )
-  } else {
-    # Segments have varying aesthetics, but don't work with non-solid lines
-    # because the dash pattern is broken
-    segmentsGrob(
-      data$x[!end], data$y[!end], data$x[!start], data$y[!start],
-      default.units="native", arrow = data$arrow, ...,
-      gp = gpar(
-        col = alpha(data$colour, data$alpha)[!end], 
-        lwd = data$size[!end] * .pt, lty = data$linetype[!end], 
-        lineend = geom$lineend, linejoin = geom$linejoin, 
-        linemitre = geom$linemitre
-      )
-    )
-  }
-}
-
 
 # Remove missing values at the start or end of a line - can't drop in the 
 # middle since you expect those to be shown by a break in the line
@@ -128,8 +101,45 @@ path_constant_aesthetics <- function(data) {
   constant
 }
 
-aes_icon.path <- function(geom) {
-  data.frame(
-    x = c(0.2, 0.4, 0.8, 0.6, 0.5), 
-    y = c(0.2, 0.7, 0.4, 0.1, 0.5))
+
+# Drawing --------------------------------------------------------------------
+
+#' @S3method geom_grob path
+geom_grob.path <- function(geom, data, ...) {
+  if (nrow(data) < 2) return(zeroGrob())
+
+  # Work out grouping variables for grobs
+  n <- nrow(data)
+  group_diff <- data$group[-1] != data$group[-n]
+  start <- c(TRUE, group_diff)
+  end <-   c(group_diff, TRUE)
+  
+  if (path_constant_aesthetics(data)) {
+    # Lines have the same aesthetics their whole length
+    polylineGrob(
+      data$x, data$y, id = as.integer(factor(data$group)), 
+      default.units = "native", arrow = data$arrow, ...,
+      gp = gpar(
+        col = alpha(data$colour, data$alpha)[start], 
+        lwd = data$size[start] * .pt, lty = data$linetype[start], 
+        lineend = geom$lineend, linejoin = geom$linejoin, 
+        linemitre = geom$linemitre)
+    )
+  } else {
+    # Segments have varying aesthetics, but don't work with non-solid lines
+    # because the dash pattern is broken
+    segmentsGrob(
+      data$x[!end], data$y[!end], data$x[!start], data$y[!start],
+      default.units="native", arrow = data$arrow, ...,
+      gp = gpar(
+        col = alpha(data$colour, data$alpha)[!end], 
+        lwd = data$size[!end] * .pt, lty = data$linetype[!end], 
+        lineend = geom$lineend, linejoin = geom$linejoin, 
+        linemitre = geom$linemitre
+      )
+    )
+  }
 }
+
+
+

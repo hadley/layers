@@ -12,10 +12,8 @@
   geom.  Given a geom and its paramters, and a dataset, it
   renders the data to produce a grid grob. The data
   supplied to this function has already been scaled, so all
-  values are interpretable by grid, but it has not been
-  fleshed out with geom defaults and aesthetics parameters
-  - use \code{\link{calc_aesthetics}} to do so. (This is
-  done at the last minute to avoid passing around large
-  chunks of duplicated data)
+  values are interpretable by grid, and data and aesthetics
+  have been combined into a single list by
+  \code{\link{geom_draw}}
 }
 

@@ -13,11 +13,27 @@
 #'   geom_plot(geom_polygon(), nz)
 #' }
 geom_polygon <- function(aesthetics = list()) {
-  geom <- geom_from_call("polygon")
-  check_aesthetic_params(geom, geom$aes_data)
-  geom
+  geom_from_call("polygon")
 }
 
+# Aesthetics -----------------------------------------------------------------
+
+#' @S3method aes_required polygon
+aes_required.polygon <- function(geom) c("x", "y")
+
+#' @S3method aes_default polygon
+aes_default.polygon <- function(geom) build_defaults(c("line", "solid"))
+
+#' @S3method aes_icon polygon
+aes_icon.polygon <- function(geom) {
+  data.frame(
+    x = c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), 
+    y = c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3))
+}
+
+# Drawing --------------------------------------------------------------------
+
+#' @S3method geom_grob polygon
 geom_grob.polygon <- function(geom, data, ...) {
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   
@@ -35,19 +51,3 @@ geom_grob.polygon <- function(geom, data, ...) {
       col = aes$colour, fill = alpha(aes$fill, aes$alpha), 
       lwd = aes$size * .pt, lty = aes$linetype))
 }
-
-aes_required.polygon <- function(geom) c("x", "y")
-aes_default.polygon <- function(geom) build_defaults(c("line", "solid"))
-
-aes_icon.polygon <- function(geom) {
-  data.frame(
-    x = c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), 
-    y = c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3))
-}
-
-# Notes for polygon enhancements:
-#  * ideally should be able to supply data frame that contains the 
-#    aesthetic values for each group
-#  * this data needs to be part of the scale training process
-#  * if supplied, need to enforce the presence of an additional id aesthetic 
-#    which matches the aesthetic data with the position data 

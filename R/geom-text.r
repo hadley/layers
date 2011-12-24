@@ -6,8 +6,6 @@
 #' @param fontface character string specifying plain, bold, italic etc.
 #' @param lineheight line height as multiple of text height
 #' @export
-#' @S3method aes_required text
-#' @S3method aes_defaults text
 #' @S3method geom_grob text
 #' @S3method geom_visaulise text
 #' @examples
@@ -20,11 +18,23 @@ geom_text <- function(aesthetics = list(), parse = FALSE, fontfamily = NULL, fon
   geom_from_call("text")
 }
 
+# Aesthetics -----------------------------------------------------------------
+
+#' @S3method aes_required text
 aes_required.text <- function(geom) c("x", "y", "label")
+
+#' @S3method aes_default text
 aes_default.text <- function(geom) {
   list(colour = "black", size = 5 , angle = 0, hjust = 0.5, vjust = 0.5, 
     alpha = 1)
 }
+
+#' @S3method aes_default text
+aes_icon.text <- function(geom) {
+  data.frame(x = 0.5, y = 0.5, angle = 45, label = "text")
+}
+
+# Drawing --------------------------------------------------------------------
 
 geom_grob.text <- function(geom, data, ...) {
   label <- data$label
@@ -37,8 +47,4 @@ geom_grob.text <- function(geom, data, ...) {
     gp = gpar(col = alpha(data$colour, data$alpha), 
     fontsize = data$size * .pt, fontfamily = geom$fontfamily,
     fontface = geom$fontface, lineheight = geom$lineheight))  
-}
-
-aes_icon.text <- function(geom) {
-  data.frame(x = 0.5, y = 0.5, angle = 45, label = "text")
 }
