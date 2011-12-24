@@ -5,7 +5,8 @@
 #' grid grob. The data supplied to this function has already been scaled,
 #' so all values are interpretable by grid, but it has not been fleshed
 #' out with geom defaults and aesthetics parameters - use 
-#' \code{\link{calc_aesthetics}} to do so.
+#' \code{\link{calc_aesthetics}} to do so. (This is done at the last minute 
+#' to avoid passing around large chunks of duplicated data)
 #'
 #' @return a grob
 geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
@@ -23,10 +24,12 @@ geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
 #' 
 #' The default method leaves the data and geom unchanged.
 #'
-#' @return list containing updated data and geom that should be used to draw
-#'   the data
+#' @return list containing \itemize{
+#'   \item{data}{the munched data}
+#'   \item{geom}{the new geom}
+#' }
 #' @export
-#' @S3method geom_premunch default
+#' @S3method geom_munch default
 geom_munch <- function(geom, data) UseMethod("geom_munch")
 geom_munch.default <- function(geom, data) list(geom = geom, data = data)
 
@@ -49,7 +52,10 @@ geom_data.default <- function(geom, data) {
   calc_aesthetics(geom, data)  
 }
 
-
+#' An iconic version of the geom.
+#' 
+#' Suitable for use in GUIs, documentation etc.
+#'
 #' @export
 #' @S3method geom_visualise default
 geom_visualise <- function(geom, data) UseMethod("geom_visualise")
@@ -57,12 +63,26 @@ geom_visualise.default <- function(geom, data = list()) {
   geom_grob(geom, data, default.units = "npc")
 }
 
+geom_visualise <- function(geom, data = list()) {
+  data <- modifyList(aes_icon(geom), data)
+  geom_plot(geom, as.data.frame(data, stringsAsFactors = FALSE))
+}
+
+
+#' The name of the geom.
+#'
+#'
+#' @export
 geom_name <- function(geom) {
   str_c("geom_", class(geom)[1])
 }
 
 #' Convenience method for plotting geoms.
 #' 
+#' This illustrates the basic pipeline by which the geom methods are called,
+#' and makes it easier to visually test geoms, but graphics packages will 
+#' usually call the methods individually themselves.
+#'
 #' @export
 geom_plot <- function(geom, data = list(), munch = FALSE) {
   data <- add_group(data)
@@ -99,10 +119,6 @@ geom_deparse <- function(geom) {
   str_c(geom_name(geom), "(", args, ")")
 }
 
-geom_visualise <- function(geom, data = list()) {
-  data <- modifyList(aes_icon(geom), data)
-  geom_plot(geom, as.data.frame(data, stringsAsFactors = FALSE))
-}
 
 
 geom_from_call <- function(name, arguments = NULL) {
