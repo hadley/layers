@@ -1,10 +1,9 @@
-\docType{data}
 \name{geom_bar}
 \alias{geom_bar}
 \title{Bars, rectangles with bases on x-axis.}
-\format{NULL}
 \usage{
-  geom_bar
+  geom_bar(aesthetics = list(), width = NULL,
+    na.rm = FALSE, ...)
 }
 \description{
   Bars, rectangles with bases on x-axis.
@@ -25,5 +24,4 @@ geom_plot(geom_bar(list(colour = "red")), df)
 
   \code{\link{position_stack}}: for more info on stacking
 }
-\keyword{datasets}
 

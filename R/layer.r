@@ -5,27 +5,6 @@
 #' @name layers
 NULL
 
-geom_from_layer <- function(name, call = NULL) {
-  if (is.null(call)) {
-    call <- match.call(sys.call(sys.parent(2)), expand.dots = FALSE)
-  }
-  
-  aes <- call$`...`[aes_all(structure(class = name))]
-    
-  call$`...` <- NULL
-  call$aesthetics <- do.call("call", list(as.name(list), aes))
-  
-  geom_from_call(name, call)
-}
-
-
-#' Creates layer function given a geom and stat.
-#' 
-#' The new function includes the arguments for geom, as well as mapping, data
-#' and \code{...}.  The \code{...} arguments must be named, and the name are
-#' used to determine which component (stat, adjustment or geom aesthetics) 
-#' that parameter corresponds to. 
-#'
 
 #' Parse named list of arguments into components.
 #'
@@ -61,13 +40,6 @@ parse_dots <- function(dots, geom = NULL, stat = NULL, adjust = NULL) {
   split(dots, arg_df$component[match])
 }
 
-build_geom_layer <- function(geom, stat, position) {
-  
-}
-
-layer <- function() {
-  
-}
 
 # Generates parameter description for a geom-layer.
 rd_geom_params <- function(geom) {
@@ -76,25 +48,27 @@ rd_geom_params <- function(geom) {
   # all valid aesthetics)
 }
 
-build_layer <- function(mapping, data, geom, stat, adjust, params, geom.params, stat.params) {  
-  args <- parse_dots(list(...), stat = stat, position = position)
-  
-  layer(mapping, data, 
-    geom = new_stat(geom.params),
-    stat = new_stat(stat, args$stat),
-    adjust = new_adjust(adjust, args$adjust)
-  )
+#' Creates layer function given a geom and stat.
+#' 
+#' The new function includes the arguments for geom, as well as mapping, data
+#' and \code{...}.  The \code{...} arguments must be named, and the name is
+#' used to determine which component (stat, adjustment or geom aesthetics) 
+#' that parameter corresponds to. 
+#'
+build_layer <- function(geom, stat, adjust) {  
+  function(...) {
+    args <- parse_dots(list(...), geom = geom, stat = stat, 
+      adjust = adjust)
+
+    layer(mapping, data, 
+      geom = new_geom(geom, args$geom),
+      stat = new_stat(stat, args$stat),
+      adjust = new_adjust(adjust, args$adjust)
+    )
+    
+  }
 }
 
-geom_jitter    <- build_geom_layer("point", "identity", "jitter")
-geom_jitter <- function(mapping, data, na.rm = FALSE, size = NULL, shape = NULL, ..., stat = "identity", position = "jitter") {
-  
-  build_layer(
-    mapping, data,
-    "point", stat, adjust,
-    params = list(...),
-    geom.params = list(na.rm = na.rm, size = size, shape = shape))
-}
-
-geom_bar       <- build_geom_layer("bar", "bin", "stack")
-geom_histogram <- build_geom_layer("bar", "bin", "stack")
+layer_bar       <- build_layer("bar", "bin", "stack")
+layer_histogram <- build_layer("bar", "bin", "stack")
+layer_jitter    <- build_layer("point", "identity", "jitter")

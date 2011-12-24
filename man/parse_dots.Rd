@@ -1,6 +1,6 @@
 \name{parse_dots}
 \alias{parse_dots}
-\title{Creates layer function given a geom and stat.}
+\title{Parse named list of arguments into components.}
 \usage{
   parse_dots(dots, geom = NULL, stat = NULL, adjust = NULL)
 }
@@ -11,13 +11,6 @@
   to the adjust}
 }
 \description{
-  The new function includes the arguments for geom, as well
-  as mapping, data and \code{...}.  The \code{...}
-  arguments must be named, and the name are used to
-  determine which component (stat, adjustment or geom
-  aesthetics) that parameter corresponds to.
-}
-\details{
   Parse named list of arguments into components.
 }
 
