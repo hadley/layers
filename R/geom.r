@@ -1,3 +1,32 @@
+#' Convenience method for plotting geoms.
+#' 
+#' This illustrates the basic pipeline by which the geom methods are called,
+#' and makes it easier to visually test geoms, but graphics packages will 
+#' usually call the methods individually themselves.
+#'
+#' @export
+geom_plot <- function(geom, data = list(), munch = FALSE) {
+  data <- add_group(data)
+  data <- geom_data(geom, data)
+  
+  check_required_aesthetics(geom, data)
+  
+  if (munch) {
+    munched <- geom_munch(geom, data)
+    geom <- munched$geom
+    data <- munched$data
+  }
+  grob <- geom_draw(geom, data)
+  rng <- geom_range(geom, data)
+
+  grid.newpage()
+  pushViewport(dataViewport(rng$x, rng$y))
+  grid.draw(grob)
+  
+  invisible(grob)
+}
+
+
 #' Render a grid grob from a geom and a dataset.
 #' 
 #' This is the key method to implement when creating a new geom.  Given a
@@ -78,33 +107,6 @@ geom_name <- function(geom) {
   paste("geom_", class(geom)[1], sep = "")
 }
 
-#' Convenience method for plotting geoms.
-#' 
-#' This illustrates the basic pipeline by which the geom methods are called,
-#' and makes it easier to visually test geoms, but graphics packages will 
-#' usually call the methods individually themselves.
-#'
-#' @export
-geom_plot <- function(geom, data = list(), munch = FALSE) {
-  data <- add_group(data)
-  data <- geom_data(geom, data)
-  
-  check_required_aesthetics(geom, data)
-  
-  if (munch) {
-    munched <- geom_munch(geom, data)
-    geom <- munched$geom
-    data <- munched$data
-  }
-  grob <- geom_draw(geom, data)
-  rng <- geom_range(geom, data)
-
-  grid.newpage()
-  pushViewport(dataViewport(rng$x, rng$y))
-  grid.draw(grob)
-  
-  invisible(grob)
-}
 
 #' Compute the range of the data supplied to a geom.
 #'
