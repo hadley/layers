@@ -43,3 +43,4 @@ Collate:
     'stat-sum.r'
     'stat.r'
     'utils.r'
+    'geom-tile.r'
