@@ -10,7 +10,7 @@
 #' geom_plot(geom_bar(width = 0.05), df)
 #' geom_plot(geom_bar(list(colour = "black")), df)
 #' geom_plot(geom_bar(list(fill = "red")), df)
-geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
+geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE) {
   geom_from_call("bar")
 }
 

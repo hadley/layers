@@ -12,7 +12,7 @@
 #' geom_plot(geom_ribbon(), df)
 #' geom_plot(geom_ribbon(list(colour = "red")), df)
 #' geom_plot(geom_ribbon(list(colour = "red", fill = NA)), df)
-geom_ribbon <- function(aesthetics = list(), ...) {
+geom_ribbon <- function(aesthetics = list()) {
   geom_from_call(c("ribbon", "line"))
 }
 

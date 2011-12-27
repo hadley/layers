@@ -4,7 +4,7 @@
 #'
 #' @family rectangular geoms
 #' @export
-geom_rect <- function(aesthetics = list(), na.rm = FALSE, ...) {
+geom_rect <- function(aesthetics = list(), na.rm = FALSE) {
   geom_from_call("rect")
 }
 

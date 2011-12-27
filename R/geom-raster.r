@@ -19,7 +19,7 @@
 #'   pp20$fill <- cscale(pp20$z, seq_gradient_pal())
 #' }
 #' geom_plot(geom_raster(), pp20)
-geom_raster <- function(aesthetics = list(), na.rm = FALSE, ...) {
+geom_raster <- function(aesthetics = list(), na.rm = FALSE) {
   geom_from_call("raster")
 }
 

@@ -20,7 +20,7 @@
 #' }
 #' geom_plot(geom_tile(), pp20)
 #' geom_plot(geom_tile(list(width = 0.95, height = 0.95)), pp20)
-geom_tile <- function(aesthetics = list(), na.rm = FALSE, ...) {
+geom_tile <- function(aesthetics = list(), na.rm = FALSE) {
   geom_from_call("tile")
 }
 

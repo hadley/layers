@@ -8,7 +8,7 @@
 #' geom_plot(geom_point(list(size = 3, shape = 15)), df)
 #'
 #' geom_plot(geom_point(list(x = 1:10, y = 10:1)))
-geom_point <- function(aesthetics = list(), na.rm = FALSE, ...) {
+geom_point <- function(aesthetics = list(), na.rm = FALSE) {
   geom_from_call("point")
 }
 

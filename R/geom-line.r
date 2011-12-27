@@ -7,7 +7,7 @@
 #' geom_plot(geom_line(), df)
 #' geom_plot(geom_line(list(colour = "red")), df)
 #' geom_plot(geom_line(list(size = 3)), df)
-geom_line <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
+geom_line <- function(aesthetics = list(), arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE) {
   geom_from_call(c("line", "path"))
 }
 

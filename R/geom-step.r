@@ -24,7 +24,7 @@ aes_icon.step <- function(geom) {
 # Data and munching ----------------------------------------------------------
 
 #' @S3method geom_data step
-geom_data.step <- function(geom, data, ...) {
+geom_data.step <- function(geom, data) {
   stairstep(data, geom$direction)
 }
 
