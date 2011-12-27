@@ -19,6 +19,8 @@ aes_present <- function(geom) UseMethod("aes_present")
 
 #' Default aesthetics for drawing representation icons.
 #'
+#' Icons should assume that the x and y ranges are between 0 and 1.
+#'
 #' @return list of aesthetics
 #' @export
 aes_icon <- function(geom) UseMethod("aes_icon")

@@ -16,10 +16,10 @@ aes_default.rect <- function(geom) build_defaults(c("line", "solid"))
 #' @S3method aes_icon rect
 aes_icon.rect <- function(geom) {
   data.frame(
-    xmin = c(0.2, 0.6),
+    xmin = c(0.1, 0.6),
     xmax = c(0.4, 0.8),
-    ymin = c(0.2, 0.4),
-    ymax = c(0.6, 1)
+    ymin = c(0.2, 0.1),
+    ymax = c(0.6, 0.9)
   )
 }
 
