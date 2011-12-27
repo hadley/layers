@@ -16,7 +16,7 @@ geom_plot(geom_line(list(colour = "red")), df)
 geom_plot(geom_line(list(size = 3)), df)
 }
 \seealso{
-  Other line geoms: \code{\link{geom_path}},
+  Other line.geoms: \code{\link{geom_path}},
   \code{\link{geom_segment}}, \code{\link{geom_step}}
 }
 

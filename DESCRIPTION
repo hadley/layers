@@ -44,3 +44,4 @@ Collate:
     'stat.r'
     'utils.r'
     'geom-tile.r'
+    'geom-raster.r'

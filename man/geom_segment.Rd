@@ -21,7 +21,7 @@ geom_plot(geom_segment(), df, munch = TRUE)
 geom_plot(geom_segment(arrow = arrow()), df)
 }
 \seealso{
-  Other line geoms: \code{\link{geom_line}},
+  Other line.geoms: \code{\link{geom_line}},
   \code{\link{geom_path}}, \code{\link{geom_step}}
 }
 

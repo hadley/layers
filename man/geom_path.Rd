@@ -29,7 +29,7 @@ geom_plot(geom_path(list(size = 3)), df)
 geom_plot(geom_path(list(x = 1:10, y = 10:1)))
 }
 \seealso{
-  Other line geoms: \code{\link{geom_line}},
+  Other line.geoms: \code{\link{geom_line}},
   \code{\link{geom_segment}}, \code{\link{geom_step}}
 }
 

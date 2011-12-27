@@ -26,7 +26,7 @@ geom_plot(geom_tile(), pp20)
 geom_plot(geom_tile(list(width = 0.95, height = 0.95)), pp20)
 }
 \seealso{
-  Other rectangular geoms: \code{\link{geom_bar}},
-  \code{\link{geom_rect}}
+  Other rectangular.geoms: \code{\link{geom_bar}},
+  \code{\link{geom_raster}}, \code{\link{geom_rect}}
 }
 

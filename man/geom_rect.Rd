@@ -9,7 +9,7 @@
   \code{ymax}.
 }
 \seealso{
-  Other rectangular geoms: \code{\link{geom_bar}},
-  \code{\link{geom_tile}}
+  Other rectangular.geoms: \code{\link{geom_bar}},
+  \code{\link{geom_raster}}, \code{\link{geom_tile}}
 }
 
