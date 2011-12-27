@@ -14,7 +14,7 @@ aes_default.rug <- function(geom) build_defaults("line")
 
 #' @S3method aes_icon geom
 aes_icon.rug <- function(geom) {
-  list(x = seq(0, 8, by = 2), y = seq(1, 9, by = 2))
+  list(x = seq(0, 1, length = 10), y = seq(0, 1, length = 10))
 }
 
 # Drawing --------------------------------------------------------------------
