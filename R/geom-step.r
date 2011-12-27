@@ -17,7 +17,7 @@ geom_step <- function(aesthetics = list(), direction = "hv") {
 
 #' @S3method aes_icon step
 aes_icon.step <- function(geom) {
-  data.frame(x = 1:15, y = 1:15)
+  data.frame(x = seq(0, 1, length = 15), y = seq(0, 1, length = 15))
 }
 
 # Data and munching ----------------------------------------------------------
