@@ -14,14 +14,7 @@ geom_plot(geom_bar(), df)
 geom_plot(geom_bar(), df, munch = TRUE)
 geom_plot(geom_bar(width = 0.1), df)
 geom_plot(geom_bar(width = 0.05), df)
-geom_plot(geom_bar(list(colour = "red")), df)
-}
-\seealso{
-  \code{\link{stat_bin}: for more details of the binning
-  algorithm #'
-
-  \code{\link{position_dodge}}: for side-by-side barcharts
-
-  \code{\link{position_stack}}: for more info on stacking
+geom_plot(geom_bar(list(colour = "black")), df)
+geom_plot(geom_bar(list(fill = "red")), df)
 }
 

@@ -1,8 +1,5 @@
 #' Bars, rectangles with bases on x-axis.
 #'
-#' @seealso \code{\link{stat_bin}: for more details of the binning algorithm #' @seealso \code{\link{position_dodge}}: for side-by-side barcharts
-#' @seealso \code{\link{position_stack}}: for more info on stacking
-#'
 #' @export
 #' @examples
 #' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
@@ -10,7 +7,8 @@
 #' geom_plot(geom_bar(), df, munch = TRUE)
 #' geom_plot(geom_bar(width = 0.1), df)
 #' geom_plot(geom_bar(width = 0.05), df)
-#' geom_plot(geom_bar(list(colour = "red")), df)
+#' geom_plot(geom_bar(list(colour = "black")), df)
+#' geom_plot(geom_bar(list(fill = "red")), df)
 geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE, ...) {
   geom_from_call("bar")
 }
