@@ -21,41 +21,52 @@ stat_contour <- function(bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FA
   stat_from_call("contour")
 }
 
-aes_required.contour <- function(obj) c("x", "y", "z")
-
-stat_transform.contour <- function(stat, data, xrange, yrange) {
-  # If no parameters set, use pretty bins
-  if (is.null(stat$bins) && is.null(stat$binwidth) && is.null(stat$breaks)) {
-    breaks <- pretty(range(data$z), 10)
-  } else {
-    # If provided, use bins to calculate binwidth
-    if (!is.null(stat$bins)) {
-      binwidth <- diff(range(data$z)) / bins
-    }
-    # If necessary, compute breaks from binwidth
-    if (is.null(stat$breaks)) {
-      breaks <- fullseq(range(data$z), binwidth)
-    } else {
-      breaks <- stat$breaks
-    }    
-  }
-  
-  contours <- ddply(data, "group", contour, breaks = breaks)
-  contours <- join_aesthetics(contours, data)
-  contours$group <- id(contours[c("group", "piece")])
-  contours
+#' @S3method stat_transform contour
+stat_transform.contour <- function(stat, data, ranges) {
+  breaks <- contour_breaks(ranges$z, stat$breaks, stat$width, stat$n)
+  contour_data(data, breaks)
 }
 
-# default_aes <- function(.) aes(order = ..level..)
+#' @S3method stat_post_transform contour
+stat_post_transform.contour <- function(stat, data, ranges) {
+  data$group <- id(data[c("group", "piece")])
+  data
+}
 
-contour <- function(data, breaks) {
-  z <- tapply(data$z, data[c("x", "y")], force)
+#' @S3method stat_ranges_needed contour
+stat_ranges_needed.default <- function(stat) "z"
+
+#' @S3method aes_required contour
+aes_required.contour <- function(obj) c("x", "y", "z")
+
+# Implementation of statistic ------------------------------------------------
+
+#' @importFrom scales fullseq
+contour_breaks <- function(range, breaks = NULL, width = NULL, n = 10) {
+  if (!is.null(breaks)) return(breaks)
+  
+  if (is.null(width)) {
+    width <- pretty(range, n)
+  }
+  
+  fullseq(range(data$z), width)
+}
+
+#' @importFrom reshape2 acast
+#' @importFrom plyr rbind.fill
+#' @importFrom grDevices contourLines
+contour_data <- function(data, vars, breaks) {
+  z <- acast(data, vars[1:2], value.var = vars[3])
+  
   cl <- contourLines(
-    x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
-    levels = breaks)  
+    x = sort(unique(data[[vars[1]]])),
+    y = sort(unique(data[[vars[2]]])),
+    z = z, 
+    levels = breaks)
+  
   cl <- lapply(cl, list_to_df)
 
   contour_df <- rbind.fill(cl)
-  contour_df$piece <- rep(seq_along(cl), sapply(cl, nrow))
+  contour_df$piece <- rep(seq_along(cl), vapply(cl, nrow, integer(1)))
   contour_df
 }

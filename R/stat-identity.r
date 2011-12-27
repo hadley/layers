@@ -1,14 +1,19 @@
-#' Identity transformation
+#' Identity transformation.
+#'
+#' Leaves data unmodified.
 #'
 #' @export
-#' @S3method stat_transform identity
-#' @S3method aes_required identity
 stat_identity <- function() {
   stat_from_call("identity")
 }
 
-stat_transform.density <- function(stat, data, xrange, yrange) {
+#' @S3method stat_transform identity
+stat_transform.identity <- function(stat, data, ranges) {
   data
 }
 
-aes_required.identity <- function(obj) c()
+#' @S3method aes_required identity
+aes_required.identity <- function(obj) character()
+
+#' @S3method stat_by_group identity
+stat_by_group.identity <- function(stat) TRUE
