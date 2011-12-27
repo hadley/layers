@@ -71,7 +71,7 @@ bar_to_rect <- function(geom, data) {
 
 #' @S3method geom_grob bar
 geom_grob.bar <- function(geom, data) {
-  rectGrob(data$x, 0, 
+  rectGrob(data$x, data$y, 
     width = data$width, height = data$y, 
     default.units = "native", just = c("center", "top"), gp = gpar(
       col = data$colour, fill = alpha(data$fill, data$alpha), 
