@@ -9,8 +9,9 @@
 }
 \description{
   This function is called by individual grob functions to
-  combine data, defaults and aesthetic parameters. It also
-  checks that all necessary aesthetics are present.
+  combine data, defaults and aesthetic parameters. It
+  checks that all necessary aesthetics are present, and
+  throws away all aesthetics not used by the geom.
 }
 \details{
   A list is returned so that constant aesthetics don't need

@@ -69,8 +69,9 @@ check_missing_aesthetics <- function(geom, data) {
 #' Update data with aesthetic defaults and parameters values.
 #'
 #' This function is called by individual grob functions to combine data, 
-#' defaults and aesthetic parameters. It also checks that all necessary
-#' aesthetics are present.
+#' defaults and aesthetic parameters. It checks that all necessary
+#' aesthetics are present, and throws away all aesthetics not used by the
+#' geom.
 #'
 #' A list is returned so that constant aesthetics don't need to be needlessly
 #' repeated - the recycling can occur internally in grid. \code{geom_grob}
@@ -78,11 +79,11 @@ check_missing_aesthetics <- function(geom, data) {
 #'
 #' @return a list
 calc_aesthetics <- function(geom, data) {
-  data <- as.data.frame(data[intersect(names(data), aes_all(geom))], 
-    stringsAsFactors = FALSE)
+  data <- as.list(data)
+  data <- data[intersect(names(data), aes_all(geom))]
 
   # Aesthetics parameters override data; data or parameters override defaults
-  data <- modifyList(as.list(data), geom$aesthetics)
+  data <- modifyList(data, geom$aesthetics)
   data <- modifyList(aes_default(geom), data)
   
   check_required_aesthetics(geom, data)

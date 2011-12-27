@@ -5,7 +5,7 @@
   add_group(data)
 }
 \value{
-  a data.frame with group variable
+  a list with group variable
 }
 \description{
   If the \code{group} variable is not present, then a new

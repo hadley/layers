@@ -2,7 +2,7 @@
 \alias{geom_grob}
 \title{Render a grid grob from a geom and a dataset.}
 \usage{
-  geom_grob(geom, data, ...)
+  geom_grob(geom, data)
 }
 \value{
   a grob

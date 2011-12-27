@@ -24,13 +24,12 @@ aes_icon.step <- function(geom) {
 
 #' @S3method geom_data step
 geom_data.step <- function(geom, data, ...) {
-  data <- as.data.frame(NextMethod(), stringsAsFactors = FALSE)
   stairstep(data, geom$direction)
 }
 
 stairstep <- function(data, direction="hv") {
   direction <- match.arg(direction, c("hv", "vh"))
-  data <- as.data.frame(data)[order(data$x), ]
+  data <- list_to_df(data)[order(data$x), ]
   n <- nrow(data)
   
   if (direction == "vh") {

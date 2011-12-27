@@ -34,8 +34,8 @@ aes_icon.polygon <- function(geom) {
 # Drawing --------------------------------------------------------------------
 
 #' @S3method geom_grob polygon
-geom_grob.polygon <- function(geom, data, ...) {
-  data <- as.data.frame(data, stringsAsFactors = FALSE)
+geom_grob.polygon <- function(geom, data) {
+  data <- list_to_df(data)
   
   aes <- constant_aesthetics(data, c("x", "y", "order"))
   if (anyDuplicated(aes$group)) {
@@ -46,7 +46,7 @@ geom_grob.polygon <- function(geom, data, ...) {
   data <- data[order(data$group), ]
   aes <- aes[order(aes$group), ]
   
-  polygonGrob(data$x, data$y, default.units = "native", ...,
+  polygonGrob(data$x, data$y, default.units = "native",
     id = as.integer(factor(data$group)), gp = gpar(
       col = aes$colour, fill = alpha(aes$fill, aes$alpha), 
       lwd = aes$size * .pt, lty = aes$linetype))

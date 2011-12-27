@@ -26,7 +26,5 @@ aes_icon.line <- function(geom) {
 
 #' @S3method geom_data line
 geom_data.line <- function(geom, data, ...) {
-  data <- as.data.frame(NextMethod(), stringsAsFactors = FALSE)
-  data[order(data$group, data$x), ]
+  order_list(data, c("group", "x"))
 }
-

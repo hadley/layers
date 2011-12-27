@@ -36,7 +36,7 @@ aes_icon.text <- function(geom) {
 
 # Drawing --------------------------------------------------------------------
 
-geom_grob.text <- function(geom, data, ...) {
+geom_grob.text <- function(geom, data) {
   label <- data$label
   if (geom$parse) {
     label <- parse(text = label)

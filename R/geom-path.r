@@ -40,7 +40,7 @@ aes_icon.path <- function(geom) {
 
 #' @S3method geom_data path
 geom_data.path <- function(geom, data) {
-  data <- as.data.frame(NextMethod(), stringsAsFactors = FALSE)
+  data <- list_to_df(data)
   data <- remove_missing(data, na.rm = geom$na.rm)
   
   # Silently drop lines with less than two points, preserving order
@@ -105,7 +105,8 @@ path_constant_aesthetics <- function(data) {
 # Drawing --------------------------------------------------------------------
 
 #' @S3method geom_grob path
-geom_grob.path <- function(geom, data, ...) {
+geom_grob.path <- function(geom, data) {
+  data <- list_to_df(data)
   if (nrow(data) < 2) return(zeroGrob())
 
   # Work out grouping variables for grobs
@@ -118,7 +119,7 @@ geom_grob.path <- function(geom, data, ...) {
     # Lines have the same aesthetics their whole length
     polylineGrob(
       data$x, data$y, id = as.integer(factor(data$group)), 
-      default.units = "native", arrow = data$arrow, ...,
+      default.units = "native", arrow = data$arrow,
       gp = gpar(
         col = alpha(data$colour, data$alpha)[start], 
         lwd = data$size[start] * .pt, lty = data$linetype[start], 
@@ -130,7 +131,7 @@ geom_grob.path <- function(geom, data, ...) {
     # because the dash pattern is broken
     segmentsGrob(
       data$x[!end], data$y[!end], data$x[!start], data$y[!start],
-      default.units="native", arrow = data$arrow, ...,
+      default.units="native", arrow = data$arrow,
       gp = gpar(
         col = alpha(data$colour, data$alpha)[!end], 
         lwd = data$size[!end] * .pt, lty = data$linetype[!end], 

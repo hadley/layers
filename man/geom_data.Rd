@@ -18,12 +18,11 @@
   testing easier.
 }
 \details{
-  This is done at the last minute to avoid passing around
-  large chunks of duplicated data
-
-  The default behaviour uses \code{\link{calc_aesthetics}}
-  to update the data with the aesthetic parameters and
-  defaults stored in the geom.  All grob methods should
-  probably eventually call this default behaviour.
+  \code{geom_data} is called after
+  \code{\link{calc_aesthetics}} and
+  \code{\link{add_group}}. It only needs to be overridden
+  if the geom does something special with the data, such as
+  ordering it like \code{geom_line}, or processing it like
+  \code{geom_path} or \code{geom_step}.
 }
 

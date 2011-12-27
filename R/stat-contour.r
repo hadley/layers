@@ -53,7 +53,7 @@ contour <- function(data, breaks) {
   cl <- contourLines(
     x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
     levels = breaks)  
-  cl <- lapply(cl, as.data.frame)
+  cl <- lapply(cl, list_to_df)
 
   contour_df <- rbind.fill(cl)
   contour_df$piece <- rep(seq_along(cl), sapply(cl, nrow))

@@ -35,7 +35,7 @@ geom_range.rect <- function(geom, data) {
 
 #' @S3method geom_premunch rect
 geom_premunch.rect <- function(geom, data) {
-  data <- as.data.frame(data, stringsAsFactors = FALSE)
+  data <- list_to_df(data)
   rect_to_poly <- function(xmin, xmax, ymin, ymax) {
     data.frame(
       y = c(ymax, ymax, ymin, ymin, ymax, NA),

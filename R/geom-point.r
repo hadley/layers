@@ -32,10 +32,10 @@ aes_icon.point <- function(geom) {
 # Drawing --------------------------------------------------------------------
 
 #' @S3method geom_grob path
-geom_grob.point <- function(geom, data, ...) {
+geom_grob.point <- function(geom, data) {
   gp <- gpar(col = alpha(data$colour, data$alpha), fill = data$fill, 
     fontsize = data$size * .pt)
   pointsGrob(data$x, data$y, size = unit(data$size, "mm"), pch = data$shape,
-    gp = data$gp, ...)    
+    gp = data$gp)    
 }
 

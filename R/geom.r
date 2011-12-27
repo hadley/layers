@@ -6,6 +6,7 @@
 #'
 #' @export
 geom_plot <- function(geom, data = list(), munch = FALSE) {
+  data <- calc_aesthetics(geom, data)
   data <- add_group(data)
   data <- geom_data(geom, data)
   
@@ -36,7 +37,7 @@ geom_plot <- function(geom, data = list(), munch = FALSE) {
 #' been combined into a single list by \code{\link{geom_draw}}
 #'
 #' @return a grob
-geom_grob <- function(geom, data, ...) UseMethod("geom_grob")
+geom_grob <- function(geom, data) UseMethod("geom_grob")
 
 #' Prepare the data for munching (if needed).
 #'
@@ -70,37 +71,32 @@ geom_premunch.default <- function(geom, data) list(geom = geom, data = data)
 #' grobs process data in a slightly different way but otherwise inherit all
 #' other behaviours, and to make testing easier. 
 #'
-#' This is done at the last minute to avoid passing around large chunks of
-#' duplicated data
-#' 
-#' The default behaviour uses \code{\link{calc_aesthetics}} to update the
-#' data with the aesthetic parameters and defaults stored in the geom.  All
-#' grob methods should probably eventually call this default behaviour.
+#' \code{geom_data} is called after \code{\link{calc_aesthetics}} and 
+#' \code{\link{add_group}}. It only needs to be overridden if the geom does
+#' something special with the data, such as ordering it like
+#' \code{geom_line}, or processing it like \code{geom_path} or
+#' \code{geom_step}.
 #' 
 #' @export
-#' @S3method geom_data default
 #' @return a list, suitable for operation with \code{\link{geom_data}}
-geom_data <- function(geom, data) UseMethod("geom_data")
-geom_data.default <- function(geom, data) {
-  calc_aesthetics(geom, data)  
+geom_data <- function(geom, data) {
+  UseMethod("geom_data")
 }
 
-#' An iconic version of the geom.
+#' @S3method geom_data default
+geom_data.default <- function(geom, data) {
+  data
+}
+
+#' Produce an visual summary of the geom.
 #' 
 #' Suitable for use in GUIs, documentation etc.
 #'
 #' @export
-#' @S3method geom_visualise default
-geom_visualise <- function(geom, data) UseMethod("geom_visualise")
-geom_visualise.default <- function(geom, data = list()) {
-  geom_grob(geom, data, default.units = "npc")
-}
-
 geom_visualise <- function(geom, data = list()) {
   data <- modifyList(aes_icon(geom), data)
-  geom_plot(geom, as.data.frame(data, stringsAsFactors = FALSE))
+  geom_plot(geom, data)
 }
-
 
 #' The name of the geom.
 #'

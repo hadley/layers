@@ -1,6 +1,6 @@
 \name{geom_visualise}
 \alias{geom_visualise}
-\title{An iconic version of the geom.}
+\title{Produce an visual summary of the geom.}
 \usage{
   geom_visualise(geom, data = list())
 }

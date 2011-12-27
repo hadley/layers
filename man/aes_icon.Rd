@@ -8,6 +8,7 @@
   list of aesthetics
 }
 \description{
-  Default aesthetics for drawing representation icons.
+  Icons should assume that the x and y ranges are between 0
+  and 1.
 }
 

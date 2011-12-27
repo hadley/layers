@@ -44,6 +44,7 @@ geom_range.ribbon <- function(geom, data) {
 # Drawing --------------------------------------------------------------------
 
 geom_grob.ribbon <- function(geom, data) {
+  data <- list_to_df(data)
   aes <- constant_aesthetics(data, c("x", "ymin", "ymax", "order"))
   if (anyDuplicated(aes$group)) {
     stop("Some groups have duplicated aesthetics. Ribbons must have 

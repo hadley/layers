@@ -44,7 +44,7 @@ geom_range.segment <- function(geom, data) {
 
 #' @S3method geom_premunch segment
 geom_premunch.segment <- function(geom, data) {
-  data <- as.data.frame(data)
+  data <- list_to_df(data)
   data$group <- 1:nrow(data)
 
   starts <- data[, setdiff(names(data), c("xend", "yend"))]
@@ -61,7 +61,7 @@ geom_premunch.segment <- function(geom, data) {
 # Drawing --------------------------------------------------------------------
 
 #' @S3method geom_grob segment
-geom_grob.segment <- function(geom, data, ...) {
+geom_grob.segment <- function(geom, data) {
   segmentsGrob(data$x, data$y, data$xend, data$yend, default.units = "native",
     gp = gpar(col = alpha(data$colour, data$alpha), lwd = data$size * .pt, 
       lty = data$linetype, lineend = "butt"), 

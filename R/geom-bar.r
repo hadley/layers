@@ -35,7 +35,7 @@ geom_data.bar <- function(geom, data) {
   if (is.null(data$width)) {
     data$width <- geom$width %||% (resolution(data$x, FALSE) * 0.9)
   }
-  NextMethod()
+  data
 }
 
 #' @S3method geom_range bar
