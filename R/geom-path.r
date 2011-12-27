@@ -6,9 +6,7 @@
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
 #' @param arrow Arrow specification, as created by ?arrow
-#' @seealso \code{\link{geom_line}}: functional (ordered) lines
-#' @seealso \code{\link{geom_polygon}}: filled paths (polygons)
-#' @seealso \code{\link{geom_segment}}: line segments
+#' @family line geoms
 #' @export
 #' @examples
 #' df <- data.frame(x = sample(1:10), y = sample(1:10))

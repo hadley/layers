@@ -1,8 +1,7 @@
 #' Single line segments.
 #' 
 #' @param arrow specification for arrow heads, as created by arrow()
-#' @seealso \code{\link{geom_path}} connect multiple points
-#' @seealso \code{\link{geom_line}} connect points ordered along x.
+#' @family line geoms
 #' @export
 #' @examples
 #' df <- data.frame(x = runif(20), y = runif(20))

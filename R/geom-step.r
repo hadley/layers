@@ -4,6 +4,7 @@
 #'
 #' @param direction = "direction of stairs: 'vh' for vertical then horizontal,
 #'    or 'hv' for horizontal then vertical"
+#' @family line geoms
 #' @export
 #' @examples
 #' df <- data.frame(x = 1:10, y = 1:10)

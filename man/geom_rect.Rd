@@ -5,6 +5,10 @@
   geom_rect(aesthetics = list(), na.rm = FALSE, ...)
 }
 \description{
-  2d rectangles.
+  Parameterised by \code{xmin}, \code{xmax}, \code{ymin},
+  \code{ymax}.
+}
+\seealso{
+  Other rectangular geoms: \code{\link{geom_bar}}
 }
 

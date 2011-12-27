@@ -17,4 +17,7 @@ geom_plot(geom_bar(width = 0.05), df)
 geom_plot(geom_bar(list(colour = "black")), df)
 geom_plot(geom_bar(list(fill = "red")), df)
 }
+\seealso{
+  Other rectangular geoms: \code{\link{geom_rect}}
+}
 

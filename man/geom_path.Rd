@@ -29,10 +29,7 @@ geom_plot(geom_path(list(size = 3)), df)
 geom_plot(geom_path(list(x = 1:10, y = 10:1)))
 }
 \seealso{
-  \code{\link{geom_line}}: functional (ordered) lines
-
-  \code{\link{geom_polygon}}: filled paths (polygons)
-
-  \code{\link{geom_segment}}: line segments
+  Other line geoms: \code{\link{geom_line}},
+  \code{\link{geom_segment}}, \code{\link{geom_step}}
 }
 

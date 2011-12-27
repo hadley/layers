@@ -16,10 +16,7 @@ geom_plot(geom_line(list(colour = "red")), df)
 geom_plot(geom_line(list(size = 3)), df)
 }
 \seealso{
-  \code{link{geom_path}}: free path, not ordered by x
-
-  \code{link{geom_segment}}: line segments
-
-  \code{link{geom_ribbon}}: fill between line and x-axis
+  Other line geoms: \code{\link{geom_path}},
+  \code{\link{geom_segment}}, \code{\link{geom_step}}
 }
 

@@ -1,8 +1,6 @@
 #' Connect observations, in ordered by x value
 #' 
-#' @seealso \code{link{geom_path}}: free path, not ordered by x
-#' @seealso \code{link{geom_segment}}: line segments
-#' @seealso \code{link{geom_ribbon}}: fill between line and x-axis
+#' @family line geoms
 #' @export geom_line
 #' @examples
 #' df <- data.frame(x = sample(1:10), y = sample(1:10))

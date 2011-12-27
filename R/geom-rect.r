@@ -1,5 +1,8 @@
 #' 2d rectangles.
 #' 
+#' Parameterised by \code{xmin}, \code{xmax}, \code{ymin}, \code{ymax}.
+#'
+#' @family rectangular geoms
 #' @export
 geom_rect <- function(aesthetics = list(), na.rm = FALSE, ...) {
   geom_from_call("rect")

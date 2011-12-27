@@ -1,5 +1,6 @@
 #' Bars, rectangles with bases on x-axis.
 #'
+#' @family rectangular geoms
 #' @export
 #' @examples
 #' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))

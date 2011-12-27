@@ -21,8 +21,7 @@ geom_plot(geom_segment(), df, munch = TRUE)
 geom_plot(geom_segment(arrow = arrow()), df)
 }
 \seealso{
-  \code{\link{geom_path}} connect multiple points
-
-  \code{\link{geom_line}} connect points ordered along x.
+  Other line geoms: \code{\link{geom_line}},
+  \code{\link{geom_path}}, \code{\link{geom_step}}
 }
 
