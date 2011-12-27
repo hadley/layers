@@ -2,7 +2,7 @@
 \alias{geom_raster}
 \title{Raster geom.}
 \usage{
-  geom_raster(aesthetics = list(), na.rm = FALSE, ...)
+  geom_raster(aesthetics = list(), na.rm = FALSE)
 }
 \description{
   High performance rectangular geom parameterised by

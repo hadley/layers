@@ -4,7 +4,7 @@
 \usage{
   geom_path(aesthetics = list(), arrow = NULL,
     lineend = "butt", linejoin = "round", linemitre = 1,
-    na.rm = FALSE, ...)
+    na.rm = FALSE)
 }
 \arguments{
   \item{lineend}{Line end style (round, butt, square)}

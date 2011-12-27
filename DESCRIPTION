@@ -45,3 +45,4 @@ Collate:
     'utils.r'
     'geom-tile.r'
     'geom-raster.r'
+    'geom-vline.r'

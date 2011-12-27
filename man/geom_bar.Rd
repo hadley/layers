@@ -3,7 +3,7 @@
 \title{Bars, rectangles with bases on x-axis.}
 \usage{
   geom_bar(aesthetics = list(), width = NULL,
-    na.rm = FALSE, ...)
+    na.rm = FALSE)
 }
 \description{
   Bars, rectangles with bases on x-axis.

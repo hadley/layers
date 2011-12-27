@@ -4,7 +4,7 @@
 \usage{
   geom_line(aesthetics = list(), arrow = NULL,
     lineend = "butt", linejoin = "round", linemitre = 1,
-    na.rm = FALSE, ...)
+    na.rm = FALSE)
 }
 \description{
   Connect observations, in ordered by x value

@@ -2,7 +2,7 @@
 \alias{geom_ribbon}
 \title{Ribbons, y range with continuous x values}
 \usage{
-  geom_ribbon(aesthetics = list(), ...)
+  geom_ribbon(aesthetics = list())
 }
 \description{
   Ribbons, y range with continuous x values

@@ -1,3 +1,5 @@
+#' Geom: point.
+#'
 #' @param na.rm If \code{TRUE} silently remove missing values, otherwise
 #'   warn that they are being removed.
 #' @export

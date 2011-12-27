@@ -2,7 +2,7 @@
 \alias{geom_rect}
 \title{2d rectangles.}
 \usage{
-  geom_rect(aesthetics = list(), na.rm = FALSE, ...)
+  geom_rect(aesthetics = list(), na.rm = FALSE)
 }
 \description{
   Parameterised by \code{xmin}, \code{xmax}, \code{ymin},

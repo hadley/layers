@@ -2,7 +2,7 @@
 \alias{geom_tile}
 \title{Tile geom.}
 \usage{
-  geom_tile(aesthetics = list(), na.rm = FALSE, ...)
+  geom_tile(aesthetics = list(), na.rm = FALSE)
 }
 \description{
   Rectangular geom parameterised by location of center
