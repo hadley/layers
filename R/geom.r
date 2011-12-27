@@ -74,7 +74,8 @@ geom_premunch.default <- function(geom, data) list(geom = geom, data = data)
 #' duplicated data
 #' 
 #' The default behaviour uses \code{\link{calc_aesthetics}} to update the
-#' data with the aesthetic parameters and defaults stored in the geom.
+#' data with the aesthetic parameters and defaults stored in the geom.  All
+#' grob methods should probably eventually call this default behaviour.
 #' 
 #' @export
 #' @S3method geom_data default

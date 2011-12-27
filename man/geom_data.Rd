@@ -23,6 +23,7 @@
 
   The default behaviour uses \code{\link{calc_aesthetics}}
   to update the data with the aesthetic parameters and
-  defaults stored in the geom.
+  defaults stored in the geom.  All grob methods should
+  probably eventually call this default behaviour.
 }
 

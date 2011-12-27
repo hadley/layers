@@ -40,7 +40,7 @@ aes_icon.path <- function(geom) {
 
 #' @S3method geom_data path
 geom_data.path <- function(geom, data) {
-  data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
+  data <- as.data.frame(NextMethod(), stringsAsFactors = FALSE)
   data <- remove_missing(data, na.rm = geom$na.rm)
   
   # Silently drop lines with less than two points, preserving order

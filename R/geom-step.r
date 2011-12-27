@@ -24,7 +24,7 @@ aes_icon.step <- function(geom) {
 
 #' @S3method geom_data step
 geom_data.step <- function(geom, data, ...) {
-  data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
+  data <- as.data.frame(NextMethod(), stringsAsFactors = FALSE)
   stairstep(data, geom$direction)
 }
 

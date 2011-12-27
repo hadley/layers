@@ -26,10 +26,7 @@ aes_icon.line <- function(geom) {
 
 #' @S3method geom_data line
 geom_data.line <- function(geom, data, ...) {
-  data <- as.data.frame(data, stringsAsFactors = FALSE)
-  data <- data[order(data$group, data$x), ]
-  
-  # Call pass on to geom_data.path
-  NextMethod()
+  data <- as.data.frame(NextMethod(), stringsAsFactors = FALSE)
+  data[order(data$group, data$x), ]
 }
 

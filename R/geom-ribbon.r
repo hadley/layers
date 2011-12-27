@@ -13,7 +13,7 @@
 #' geom_plot(geom_ribbon(list(colour = "red")), df)
 #' geom_plot(geom_ribbon(list(colour = "red", fill = NA)), df)
 geom_ribbon <- function(aesthetics = list(), ...) {
-  geom_from_call("ribbon")
+  geom_from_call(c("ribbon", "line"))
 }
 
 # Aesthetics -----------------------------------------------------------------
@@ -33,12 +33,6 @@ aes_icon.ribbon <- function(geom) {
 }
 
 # Data and munching ----------------------------------------------------------
-
-#' @S3method geom_data ribbon
-geom_data.ribbon <- function(geom, data) {
-  data <- as.data.frame(calc_aesthetics(geom, data), stringsAsFactors = FALSE)
-  data[order(data$group, data$x), ]
-}
 
 #' @S3method geom_range ribbon
 geom_range.ribbon <- function(geom, data) {
