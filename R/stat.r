@@ -101,12 +101,22 @@ stat_from_call <- function(name, arguments = NULL) {
 #' This function ensures that all group-wise constant aesthetics are 
 #' preserved after statistical transformation.
 join_aesthetics <- function(stats, data) {
-  constant <- groupwise_constant(data)
+  constant <- groupwise_constant(data, "group")
+  
   join(stats, constant, by = "group", match = "first")
 }
 
-groupwise_constant <- function(df) {
-  is.constant <- function(x) length(unique(x)) == 1
-  constant_cols <- function(x) head(Filter(is.constant, x), 1)
-  ddply(df, "group", constant_cols)  
+groupwise_constant <- function(df, group_var) {
+  i <- which(group_var %in% names(df))
+  order <- order(df[[i]])
+  n <- nrow(df)
+
+  changed <- function(x) c(TRUE, x[-1] != x[-n])
+  changes <- lapply(df, function(x) changed(x[order]))
+
+  # If col == TRUE and group == FALSE, not constant
+  matching_breaks <- function(group, col) !any(col & !group)
+  cols <- vapply(changes[-i], matching_breaks, group = changes[[i]], 
+    FUN.VALUE = logical(1))
+  df[order[changes[[i]]], c(group_var, names(which(cols))), drop = FALSE]
 }
