@@ -10,9 +10,11 @@
 # rel(0), rel(0.5), rel(1) would always be located at the 0
 # abs(1, "cm"), abs(-1, "cm")
 #
-# This needs enough S3 so that unit always carried along through all
+# This needs enough S3 (S4?) so that units always carried along through all
 # mathematical transformations, and then carefully convert to data coordinates
 # at appropriate time? (Different times for rel and absolute)
+#
+# Is it a stat or a geom? Or a combination? 
 
 geom_vline <- function(aesthetics = list()) {
   geom_from_call("vline")
