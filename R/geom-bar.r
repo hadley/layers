@@ -6,11 +6,11 @@
 #' df <- data.frame(x = seq(0,1, 0.1), y = seq(0, 1, 0.1))
 #' geom_plot(geom_bar(), df)
 #' geom_plot(geom_bar(), df, munch = TRUE)
-#' geom_plot(geom_bar(width = 0.1), df)
-#' geom_plot(geom_bar(width = 0.05), df)
+#' geom_plot(geom_bar(list(width = 0.1)), df)
+#' geom_plot(geom_bar(list(width = 0.05)), df)
 #' geom_plot(geom_bar(list(colour = "black")), df)
 #' geom_plot(geom_bar(list(fill = "red")), df)
-geom_bar <- function(aesthetics = list(), width = NULL, na.rm = FALSE) {
+geom_bar <- function(aesthetics = list(), na.rm = FALSE) {
   geom_from_call("bar")
 }
 
@@ -31,9 +31,7 @@ aes_icon.bar <- function(geom) {
 
 #' @S3method geom_data bar
 geom_data.bar <- function(geom, data) {
-  if (is.null(data$width)) {
-    data$width <- geom$width %||% (resolution(data$x, FALSE) * 0.9)
-  }
+  data$width <- data$width %||% resolution(data$x, FALSE) * 0.9
   data
 }
 
