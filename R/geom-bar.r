@@ -31,7 +31,7 @@ aes_icon.bar <- function(geom) {
 
 #' @S3method geom_data bar
 geom_data.bar <- function(geom, data) {
-  data$width <- data$width %||% resolution(data$x, FALSE) * 0.9
+  data$width <- data$width %||% (resolution(data$x, FALSE) * 0.9)
   data
 }
 
